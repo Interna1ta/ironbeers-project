@@ -1,5 +1,5 @@
-<div class="form-container">
-  <h1 class="form-title">Sign up</h1>
+<div class="form-container container">
+  <h2 class="form-title">Sign up</h2>
   <form method="POST" action="/users/signup">
     <div class="field">
       <input type="email" placeholder="Email" name="email" />
@@ -8,7 +8,16 @@
       <input type="password" placeholder="Password" name="password" />
     </div>
     <div class="field submit">
-      <button type="submit" class="btn btn-submit">Sign up</button>
+      <button type="submit" class="btn btn-primary">Sign up</button>
     </div>
   </form>
+  <% if (messages) { %>
+    <ul class="validation">
+      <li><%= messages[0] %></li>
+    </ul>
+  <% }; %>
+  <div class="link">
+    <p>Already have an account? </p>
+    <a href="/users/login">Log in</a>
+  </div>
 </div>

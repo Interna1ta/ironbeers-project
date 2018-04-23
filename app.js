@@ -9,6 +9,7 @@ const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 
 // -- require your own modules (router, models)
 const index = require('./routes/index');
@@ -45,13 +46,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// EJS layouts
-app.use(expressLayouts);
+app.use(expressLayouts); // EJS layouts
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.user;
   console.log('USER SESSION', req.session.id);
   next();
 });
+app.use(flash()); // Flash messages
 
 // ---------- ROUTES ----------
 app.use('/', index);

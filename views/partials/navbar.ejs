@@ -1,18 +1,17 @@
-
-<% if (!currentUser) { %>
-  <nav id="navbar">
-    <a href="/" class="logo">🍻</a>
-    <a href="/users/login" class="btn btn-navbar">Login</a>
-  </nav>
-<% } else { %>
-  <nav id="navbar">
-    <a href="/events" class="btn btn-navbar">Events</a>
-    <a href="/events/create" class="btn btn-navbar">Organize</a>
-    <a href="/profile" class="btn btn-navbar">Profile</a>
-    <form method="POST" action="/users/logout">
-      <div>
-        <button type="submit" class="btn btn-navbar">Logout</button>
-      </div>
-    </form>
-  </nav>
-<% }; %>
+<nav id="navbar">
+  <div class="container navbar">
+    <% if (!currentUser) { %>
+      <a href="/" class="logo">🍻</a>
+      <a href="/users/login" class="btn btn-navbar">Login</a>
+    <% } else { %>
+      <a href="/events" class="btn btn-navbar">Events</a>
+      <a href="/events/create" class="btn btn-navbar">Organize</a>
+      <a href="/profile" class="btn btn-navbar">Profile</a>
+      <form method="POST" action="/users/logout">
+        <div>
+          <button type="submit" class="btn btn-navbar">Logout</button>
+        </div>
+      </form>
+    <% }; %>
+  </div>
+</nav>

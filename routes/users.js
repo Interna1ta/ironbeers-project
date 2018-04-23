@@ -13,17 +13,19 @@ const bcryptSalt = 10;
 // ----- Get ----- //
 router.get('/signup', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/'); // @todo redirect to events
+    return res.redirect('/events');
   };
 
-  // @todo read flash 'signup'
-  res.render('pages/users/signup');
+  const data = {
+    messages: req.flash('message-name')
+  };
+  res.render('pages/users/signup', data);
 });
 
 // ----- Post ----- //
 router.post('/signup', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/'); // @todo redirect to events
+    return res.redirect('/events');
   };
 
   const email = req.body.email;
@@ -31,11 +33,13 @@ router.post('/signup', (req, res, next) => {
 
   if (!email) {
     // @todo send flash 'signup' PLEASE PROVIDE USERNAME
+    req.flash('message-name', 'Please provide email');
     return res.redirect('/users/signup');
   };
 
   if (!password) {
     // @todo send flash 'signup' PLEASE PROVIDE PASSWORD
+    req.flash('message-name', 'Please provide password');
     return res.redirect('/users/signup');
   }
 
@@ -43,6 +47,7 @@ router.post('/signup', (req, res, next) => {
     .then(result => {
       if (result) {
         // @todo send flash 'signup' USERNAME ALREADY TAKEN
+        req.flash('message-name', 'Username already taken');
         return res.redirect('/users/signup');
       }
 
@@ -57,6 +62,7 @@ router.post('/signup', (req, res, next) => {
         .then(() => {
           req.session.user = user;
           // @todo WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
+          req.flash('message-name', 'Welcome friend!');
           return res.redirect('/events');
         });
     })
@@ -68,16 +74,18 @@ router.post('/signup', (req, res, next) => {
 // ----- Get ----- //
 router.get('/login', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/'); // @todo redirect to events
+    return res.redirect('/events');
   };
-  // @todo read flash 'login'
-  res.render('pages/users/login');
+  const data = {
+    messages: req.flash('message-name')
+  };
+  res.render('pages/users/login', data);
 });
 
 // ----- Post ----- //
 router.post('/login', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/'); // @todo redirect to events
+    return res.redirect('/events');
   };
   const email = req.body.email;
   const password = req.body.password;
@@ -86,10 +94,11 @@ router.post('/login', (req, res, next) => {
     .then(result => {
       if (!result || !bcrypt.compareSync(password, result.password)) {
         // @todo send flash 'login'
+        req.flash('message-name', 'Email or Password are incorrect');
         return res.redirect('/users/login');
       }
 
-      // @todo send flash 'welcome'
+      req.flash('message-name', 'Welcome friend!');
       req.session.user = result;
       res.redirect('/events');
     })
