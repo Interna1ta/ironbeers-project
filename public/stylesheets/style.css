@@ -64,6 +64,39 @@ p {
   margin-bottom: 30px;
 }
 
+.instructions {
+  display: flex;
+  flex-direction: row;
+  padding-top: 40px;
+}
+
+.instructions .icons {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.fa-edit,
+.fa-user-plus,
+.fa-beer {
+  padding-top: 20px;
+  font-size: 50px;
+}
+
+.instructions .list{
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  justify-content: space-around;
+}
+
+.instructions .list-title {
+  font-weight: 700;
+  padding-top: 20px;
+}
+
 /* ----- NAV BAR ----- */
 
 #navbar {
@@ -101,7 +134,7 @@ p {
   border-radius: 25px;
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 /* ----- COMPONENTS ----- */
