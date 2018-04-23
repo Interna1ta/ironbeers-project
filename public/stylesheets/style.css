@@ -1,0 +1,111 @@
+/*
+COLORS
+  white: #ffffff
+  yellow: #fffc00
+  black: #262626
+  blue: #1487fe
+*/
+
+/* ---------- RESET ---------- */
+
+html {
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+
+body {
+  color: #111;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 147%;
+  background-color: #fffc00;
+  font-family: 'Lato', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Montserrat Alternates', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+}
+
+h1 {
+  margin: 0;
+  /* font-weight: 700; */
+  font-size: 36px;
+}
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* ----- HOMEPAGE ----- */
+
+.main-title {
+  margin-bottom: 30px;
+}
+
+/* ----- NAV BAR ----- */
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+}
+
+#navbar .btn-navbar {
+
+}
+
+/* ----- BUTTONS ----- */
+
+.btn {
+  background-color: #1487fe;
+  padding: 3px 10px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.btn-primary {
+  padding: 10px;
+  width: 100%;
+  background-color: white;
+  color: #262626;
+  border: none;
+  line-height: 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+/* ----- COMPONENTS ----- */
+
+
+
+/* ----- FOOTER ----- */
