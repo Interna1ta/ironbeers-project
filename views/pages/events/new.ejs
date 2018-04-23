@@ -1,14 +1,26 @@
 <div class="form-container">
-  <h1 class="form-title">Log in</h1>
+  <h1 class="form-title">Create Event</h1>
   <form method="POST" action="/events">
     <div class="field">
-      <input type="text" placeholder="Email" name="email" />
+      <input type="text" placeholder="Title" name="title" />
     </div>
     <div class="field">
-      <input type="password" placeholder="Password" name="password" />
+      <input type="text" placeholder="Description" name="description" />
+    </div>
+    <div class="field">
+      <input type="text" placeholder="Location" name="location" />
+    </div>
+    <div class="field">
+      <input type="text" placeholder="Date" name="date" />
+    </div>
+    <div class="field">
+      <input type="text" placeholder="Time" name="time" />
+    </div>
+    <div class="field">
+      <input type="text" placeholder="Picture" name="picture" />
     </div>
     <div class="field submit">
-      <button type="submit" class="btn btn-submit">Log in</button>
+      <button type="submit" class="btn btn-submit">Create</button>
     </div>
   </form>
 </div>

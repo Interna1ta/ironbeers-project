@@ -109,8 +109,8 @@ p {
   background-color: #ffffff;
 }
 
-#navbar .btn-navbar {
-
+#navbar .logo {
+ font-size: 30px;
 }
 
 /* ----- BUTTONS ----- */
@@ -136,6 +136,37 @@ p {
   font-weight: 400;
   margin-bottom: 20px;
 }
+
+
+/* -------- CARD --------- */
+
+.card {
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.card .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.card .link {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  text-decoration: none;
+  z-index: 30;
+}
+
 
 /* ----- COMPONENTS ----- */
 

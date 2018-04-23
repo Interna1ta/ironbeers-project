@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
   };
   const owner = req.session.user;
 
-  Event.find({ owner: owner })
+  Event.find({ owner: owner }).populate('owner', 'email -_id')
     .then((result) => {
       const data = { events: result };
       res.render('pages/events/index', data);
@@ -30,6 +30,7 @@ router.get('/create', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
+  // @todo read flash const data = { messages: req.flash('welcome') }
   res.render('pages/events/new');
 });
 

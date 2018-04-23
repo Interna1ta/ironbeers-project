@@ -4,6 +4,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+
 const router = express.Router();
 const bcryptSalt = 10;
 
@@ -12,52 +13,54 @@ const bcryptSalt = 10;
 // ----- Get ----- //
 router.get('/signup', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect('/'); // @todo redirect to events
   };
+
+  // @todo read flash 'signup'
   res.render('pages/users/signup');
 });
 
 // ----- Post ----- //
 router.post('/signup', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect('/'); // @todo redirect to events
   };
 
   const email = req.body.email;
   const password = req.body.password;
 
   if (!email) {
-    // PLEASE PROVIDE USERNAME
+    // @todo send flash 'signup' PLEASE PROVIDE USERNAME
     return res.redirect('/users/signup');
   };
 
   if (!password) {
-    // PLEASE PROVIDE PASSWORD
+    // @todo send flash 'signup' PLEASE PROVIDE PASSWORD
     return res.redirect('/users/signup');
   }
 
   User.findOne({ email: email })
     .then(result => {
       if (result) {
-        // USERNAME ALREADY TAKEN
+        // @todo send flash 'signup' USERNAME ALREADY TAKEN
         return res.redirect('/users/signup');
-      } else {
-        const salt = bcrypt.genSaltSync(bcryptSalt);
-        const hashPass = bcrypt.hashSync(password, salt);
+      }
 
-        const user = User({
-          email,
-          password: hashPass
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const user = User({
+        email,
+        password: hashPass
+      });
+      return user.save()
+        .then(() => {
+          req.session.user = user;
+          // @todo WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
+          return res.redirect('/events');
         });
-        user.save()
-          .then(() => {
-            req.session.user = user;
-            // WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
-            return res.redirect('/events');
-          })
-          .catch(next);
-      };
-    });
+    })
+    .catch(next);
 });
 
 // ---------- LOGIN ---------- //
@@ -65,29 +68,30 @@ router.post('/signup', (req, res, next) => {
 // ----- Get ----- //
 router.get('/login', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect('/'); // @todo redirect to events
   };
+  // @todo read flash 'login'
   res.render('pages/users/login');
 });
 
 // ----- Post ----- //
 router.post('/login', (req, res, next) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect('/'); // @todo redirect to events
   };
   const email = req.body.email;
   const password = req.body.password;
 
   User.findOne({ email: email })
     .then(result => {
-      if (!result) {
-        return res.redirect('/users/login');
-      } else if (bcrypt.compareSync(password, result.password)) {
-        req.session.user = result;
-        return res.redirect('/events');
-      } else {
+      if (!result || !bcrypt.compareSync(password, result.password)) {
+        // @todo send flash 'login'
         return res.redirect('/users/login');
       }
+
+      // @todo send flash 'welcome'
+      req.session.user = result;
+      res.redirect('/events');
     })
     .catch(next);
 });
