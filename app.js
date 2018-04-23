@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 // -- require your own modules (router, models)
 const index = require('./routes/index');
 const users = require('./routes/users');
+const events = require('./routes/events');
 
 // -- setup the app
 const app = express();
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
 // ---------- ROUTES ----------
 app.use('/', index);
 app.use('/users', users);
+app.use('/events', events);
 
 // -- 404 and error handler
 

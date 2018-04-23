@@ -23,10 +23,10 @@ router.post('/signup', (req, res, next) => {
     return res.redirect('/');
   };
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  if (!username) {
+  if (!email) {
     // PLEASE PROVIDE USERNAME
     return res.redirect('/users/signup');
   };
@@ -36,7 +36,7 @@ router.post('/signup', (req, res, next) => {
     return res.redirect('/users/signup');
   }
 
-  User.findOne({ username: username })
+  User.findOne({ email: email })
     .then(result => {
       if (result) {
         // USERNAME ALREADY TAKEN
@@ -46,14 +46,14 @@ router.post('/signup', (req, res, next) => {
         const hashPass = bcrypt.hashSync(password, salt);
 
         const user = User({
-          username,
+          email,
           password: hashPass
         });
         user.save()
           .then(() => {
             req.session.user = user;
             // WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
-            return res.redirect('/');
+            return res.redirect('/events');
           })
           .catch(next);
       };
@@ -75,16 +75,16 @@ router.post('/login', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/');
   };
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ username: username })
+  User.findOne({ email: email })
     .then(result => {
       if (!result) {
         return res.redirect('/users/login');
       } else if (bcrypt.compareSync(password, result.password)) {
         req.session.user = result;
-        return res.redirect('/');
+        return res.redirect('/events');
       } else {
         return res.redirect('/users/login');
       }
