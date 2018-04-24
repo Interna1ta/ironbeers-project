@@ -1,0 +1,24 @@
+<div class="container">
+    <div>
+      <div class="profile-information">
+        <% if (user.picture) { %>
+          <p><%= user.picture %></p>
+        <% } else { %>
+          <img src="/images/user.svg" alt="">
+        <% }; %>
+        <p class="email"><%= user.email %></p>
+      </div>
+      <div class="edit-buttons">
+        <% if (user._id == currentUser._id) { %>
+          <!-- <a href="/profiles/update" class="btn btn-primary">Edit</a> -->
+          <form method="GET" action="/profiles/update">
+            <button class="btn btn-primary">Edit</button>
+          </form>
+          <form method="POST" action="/users/logout">
+            <button src="/" class="btn btn-primary">Logout</button>
+          </form>
+        <% }; %>
+      </div>
+    </div>
+
+</div>

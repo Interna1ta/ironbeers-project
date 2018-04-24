@@ -409,3 +409,39 @@ p {
 .error-container .description {
   text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ----- PROFILE ----- */
+
+.profile-information {
+  text-align: center;
+}
+
+.profile-information .email {
+  font-weight: 700;
+  padding-top: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-information .description {
+  padding-top: 10px;
+  margin-bottom: 40px;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-button a {
+  /* margin-bottom: 10px; */
+}

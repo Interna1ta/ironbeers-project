@@ -15,6 +15,7 @@ const flash = require('connect-flash');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const events = require('./routes/events');
+const profiles = require('./routes/profiles');
 
 // -- setup the app
 const app = express();
@@ -58,6 +59,7 @@ app.use(flash()); // Flash messages
 app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
+app.use('/profiles', profiles);
 
 // -- 404 and error handler
 

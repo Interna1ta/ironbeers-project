@@ -112,13 +112,20 @@ router.post('/:id', (req, res, next) => {
 // ---------- CANCEL EVENT ---------- //
 
 // ----- Post ----- //
-// router.post('/:id/cancel', (req, res, next) => {
-//   const eventId = req.params.id;
-//   Event.findOneAndUpdate(eventId)
-//     .then(() => {
-//       res.redirect('/');
-//     });
-// });
+router.post('/:id/cancel', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
+  const eventId = req.params.id;
+  const data = {
+    default: false
+  };
+  Event.findOneAndUpdate(eventId, { $set: { ...data } })
+    .then(() => {
+      res.redirect(`/`);
+    })
+    .catch(next);
+});
 
 // ---------- INVITE EVENT ---------- //
 

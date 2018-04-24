@@ -34,6 +34,10 @@ const eventSchema = new Schema({
   },
   picture: {
     type: String
+  },
+  active: {
+    type: Boolean,
+    default: true
   }
 });
 
