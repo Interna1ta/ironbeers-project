@@ -214,7 +214,7 @@ p {
 }
 
 
-/* ----- alerts ----- */
+/* ----- ALERTS ----- */
 
 .alert-edit-profile {
   width: 100%;
@@ -238,4 +238,24 @@ p {
   color: #155724;
 }
 
-/* ----- FOOTER ----- */
+/* ----- ERRORS ----- */
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 30px;
+}
+
+.error-container .logo {
+  font-size: 100px;
+}
+
+.error-container .message {
+  margin-bottom: 20px;
+}
+
+.error-container .description {
+  text-align: center;
+}
