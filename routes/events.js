@@ -17,7 +17,8 @@ router.get('/', (req, res, next) => {
 
   Event.find({ owner: owner }).populate('owner', 'email -_id')
     .then((result) => {
-      const data = { events: result,
+      const data = {
+        events: result,
         messages: req.flash('message-name'
         )};
       res.render('pages/events/index', data);
@@ -54,16 +55,70 @@ router.post('/', (req, res, next) => {
 // ---------- SHOW EVENT ---------- //
 
 // ----- Get ----- //
+router.get('/:id', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
+  const eventId = req.params.id;
+  Event.findById(eventId)
+    .then((result) => {
+      const data = {
+        event: result
+      };
+      res.render('pages/events/show', data);
+    })
+    .catch(next);
+});
 
 // ---------- UPDATE EVENT ---------- //
 
 // ----- Get ----- //
+router.get('/:id/edit', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
+  const eventId = req.params.id;
+  Event.findById(eventId)
+    .then((result) => {
+      const data = {
+        event: result
+      };
+      res.render('pages/events/edit', data);
+    })
+    .catch(next);
+});
 
 // ----- Post ----- //
+router.post('/:id', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
+  const eventId = req.params.id;
+  const data = {
+    title: req.body.title,
+    description: req.body.description,
+    location: req.body.location,
+    date: req.body.date,
+    time: req.body.time,
+    picture: req.body.picture
+  };
+  Event.findOneAndUpdate(eventId, { $set: { ...data } })
+    .then(() => {
+      res.redirect(`/events/${eventId}`);
+    })
+    .catch(next);
+});
 
 // ---------- CANCEL EVENT ---------- //
 
 // ----- Post ----- //
+// router.post('/:id/cancel', (req, res, next) => {
+//   const eventId = req.params.id;
+//   Event.findOneAndUpdate(eventId)
+//     .then(() => {
+//       res.redirect('/');
+//     });
+// });
 
 // ---------- INVITE EVENT ---------- //
 

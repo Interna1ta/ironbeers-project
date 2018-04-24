@@ -1,0 +1,25 @@
+<div class="container">
+    <div>
+      <div class="title">
+        <p>
+          <%= event.date %>
+        </p>
+        <p>
+          <%= event.time %>
+        </p>
+      </div>
+      <p>
+        <%= event.location %>
+      </p>
+      <p>
+        <%= event.title %>
+      </p>
+      <p>
+        <%= event.guests %>helllooooo
+      </p>
+      <% if (event.owner == currentUser._id) { %>
+        <a href="/events/<%= event._id %>/edit" class="btn btn-navbar">Edit</a>
+      <% } %>
+    </div>
+
+</div>
