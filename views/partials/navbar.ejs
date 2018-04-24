@@ -4,14 +4,15 @@
       <a href="/" class="logo">🍻</a>
       <a href="/users/login" class="btn btn-navbar">Login</a>
     <% } else { %>
-      <a href="/events" class="btn btn-navbar">Events</a>
-      <a href="/events/create" class="btn btn-navbar">Organize</a>
-      <a href="/profile" class="btn btn-navbar">Profile</a>
-      <form method="POST" action="/users/logout">
-        <div>
-          <button type="submit" class="btn btn-navbar">Logout</button>
-        </div>
-      </form>
+      <a href="/events" class="navbar-link">
+        <img src="/images/events.svg" alt="">
+      </a>
+      <a href="/events/create" class="navbar-link">
+        <img src="/images/add.svg" alt="">
+      </a>
+      <a href="/profile" class="navbar-link">
+        <img src="/images/user.svg" alt="">
+      </a>
     <% }; %>
   </div>
 </nav>
