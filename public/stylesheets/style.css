@@ -214,8 +214,28 @@ p {
 }
 
 
-/* ----- COMPONENTS ----- */
+/* ----- alerts ----- */
 
+.alert-edit-profile {
+  width: 100%;
+  position: absolute;
+  top: 63px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  padding: 30px 50px;
+  border-radius: 0px;
+}
 
+.alert-edit-profile .edit-button {
+  margin: 0px;
+  margin-left: 30px;
+}
+
+.alert-edit-profile .fa-edit {
+  margin: 0px;
+  color: #155724;
+}
 
 /* ----- FOOTER ----- */

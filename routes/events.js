@@ -17,7 +17,9 @@ router.get('/', (req, res, next) => {
 
   Event.find({ owner: owner }).populate('owner', 'email -_id')
     .then((result) => {
-      const data = { events: result };
+      const data = { events: result,
+        messages: req.flash('message-name'
+        )};
       res.render('pages/events/index', data);
     })
     .catch(next);

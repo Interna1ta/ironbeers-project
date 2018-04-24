@@ -62,7 +62,7 @@ router.post('/signup', (req, res, next) => {
         .then(() => {
           req.session.user = user;
           // @todo WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
-          req.flash('message-name', 'Welcome friend!');
+          req.flash('message-name', 'Welcome, please don´t forget to update your profile');
           return res.redirect('/events');
         });
     })
@@ -98,8 +98,8 @@ router.post('/login', (req, res, next) => {
         return res.redirect('/users/login');
       }
 
-      req.flash('message-name', 'Welcome friend!');
       req.session.user = result;
+      req.flash('message-name', 'Welcome back friend!');
       res.redirect('/events');
     })
     .catch(next);
@@ -108,7 +108,9 @@ router.post('/login', (req, res, next) => {
 // ---------- LOGOUT ---------- //
 
 router.post('/logout', (req, res, next) => {
+  console.log(req.session);
   delete req.session.user;
+  delete req.session.flash;
   return res.redirect('/');
 });
 
