@@ -1,8 +1,8 @@
 <div class="container">
     <div>
       <div class="profile-information">
-        <% if (user.picture) { %>
-          <p><%= user.picture %></p>
+        <% if (user.imgPath) { %>
+          <img src="<%= user.imgPath %>"class="avatar" alt="">
         <% } else { %>
           <img src="/images/avatar.png" class="avatar" alt="">
         <% }; %>

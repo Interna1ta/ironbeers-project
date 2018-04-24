@@ -4,6 +4,7 @@
 const express = require('express');
 const User = require('../models/user');
 const router = express.Router();
+const uploadCloud = require('../config/cloudinary.js');
 
 // ----- Get ----- //
 router.get('/profile', (req, res, next) => {
@@ -32,17 +33,26 @@ router.get('/update', (req, res, next) => {
 });
 
 // ----- Post ----- //
-router.post('/update', (req, res, next) => {
+router.post('/update', uploadCloud.single('imgPath'), (req, res, next) => {
   const userId = req.session.user._id;
-  const data = {
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    picture: req.body.picture
-  };
+  let data;
+  if (req.file) {
+    data = {
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      imgPath: req.file.url,
+      imgName: req.file.name
+    };
+  } else {
+    data = {
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    };
+  }
   User.findByIdAndUpdate(userId, { $set: { ...data } }, {new: true})
     .then((result) => {
-      console.log(result);
       res.redirect(`/profiles/profile`);
     })
     .catch(next);

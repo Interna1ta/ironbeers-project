@@ -22,7 +22,10 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
-  picture: {
+  imgPath: {
+    type: String
+  },
+  imgName: {
     type: String
   }
 
