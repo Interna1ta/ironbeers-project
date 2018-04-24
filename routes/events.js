@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
   };
   const owner = req.session.user;
 
-  Event.find({ owner: owner }).populate('owner', 'email -_id')
+  Event.find({ owner: owner, active: true }).populate('owner', 'email -_id')
     .then((result) => {
       const data = {
         events: result,
@@ -118,9 +118,9 @@ router.post('/:id/cancel', (req, res, next) => {
   };
   const eventId = req.params.id;
   const data = {
-    default: false
+    active: false
   };
-  Event.findOneAndUpdate(eventId, { $set: { ...data } })
+  Event.findByIdAndUpdate(eventId, { $set: { ...data } }, {new: true})
     .then(() => {
       res.redirect(`/`);
     })

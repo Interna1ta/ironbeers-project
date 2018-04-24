@@ -43,7 +43,9 @@
   <div class="button-holder">
     <% if (event.owner._id == currentUser._id) { %>
       <a href="/" class="btn btn-edit">Edit</a>
-      <a href="/" class="btn btn-cancel">Cancel</a>
+      <form method="POST" action="/events/<%= event._id %>/cancel">
+        <button type="submit" class="btn btn-cancel">Cancel</button>
+      </form>
     <% } else { %>
       <a href="/" class="btn btn-ignore">Ignore</a>
     <% }; %>
