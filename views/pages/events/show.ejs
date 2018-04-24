@@ -1,25 +1,51 @@
-<div class="container">
-    <div>
-      <div class="title">
-        <p>
-          <%= event.date %>
-        </p>
-        <p>
-          <%= event.time %>
-        </p>
+<div class="container guest-container">
+  <h3><%= event.date %></h3>
+  <h2><%= event.title %></h2>
+  <h4><%= event.time %></h4>
+  <div class="owner">
+    <img src="/images/avatar.png" alt="avatar" class="avatar">
+    <h4><%= event.owner.email %></h4>
+  </div>
+  <div class="guests">
+    <% if (event.guests.length === 0) { %>
+      <h4>There is no guests yet</h4>
+      <p>Invite your first one</p>
+    <% } else { %>
+      <h4>Guests</h4>
+      <div class="guests-card">
+        <h4><% event.guests.lenght %> Ironhackers</h4>
+        <% event.guests.forEach((guest) => { %>
+          <img src="/images/avatar.png" alt="avatar" class="avatar">
+        <% }); %>
       </div>
-      <p>
-        <%= event.location %>
-      </p>
-      <p>
-        <%= event.title %>
-      </p>
-      <p>
-        <%= event.guests %>helllooooo
-      </p>
-      <% if (event.owner == currentUser._id) { %>
-        <a href="/events/<%= event._id %>/edit" class="btn btn-navbar">Edit</a>
-      <% } %>
+    <% }; %>
+  </div>
+  <div class="details">
+    <h4>Details</h4>
+    <p><%= event.description %></p>
+  </div>
+  <div class="location">
+    <div class="date-holder">
+      <img src="/images/date.svg" alt="">
+      <div class="date">
+        <p><%= event.time %></p>
+        <p><%= event.date %></p>
+      </div>
     </div>
-
+    <div class="location-holder">
+      <img src="/images/Location.svg" alt="">
+      <p><%= event.location %></p>
+    </div>
+    <img src="/images/location.png" alt="avatar" class="mapa">
+  </div>
+  <div class="pictures">
+  </div>
+  <div class="button-holder">
+    <% if (event.owner._id == currentUser._id) { %>
+      <a href="/" class="btn btn-edit">Edit</a>
+      <a href="/" class="btn btn-cancel">Cancel</a>
+    <% } else { %>
+      <a href="/" class="btn btn-ignore">Ignore</a>
+    <% }; %>
+  </div>
 </div>

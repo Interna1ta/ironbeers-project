@@ -60,7 +60,7 @@ router.get('/:id', (req, res, next) => {
     return res.redirect('/');
   };
   const eventId = req.params.id;
-  Event.findById(eventId)
+  Event.findById(eventId).populate('owner')
     .then((result) => {
       const data = {
         event: result

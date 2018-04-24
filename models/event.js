@@ -19,10 +19,10 @@ const eventSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
-  guests: {
+  guests: [{
     type: ObjectId,
     ref: 'User'
-  },
+  }],
   location: {
     type: String
   },

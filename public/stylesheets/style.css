@@ -150,6 +150,129 @@ p {
   margin-bottom: 20px;
 }
 
+/* ----------- GUEST SHOW -------------- */
+
+.guest-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.guest-container .owner {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.guest-container .owner h4 {
+  font-size: 20px;
+}
+
+.guest-container .avatar {
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid #262626;
+  margin-right: 20px;
+}
+
+.guest-container .guests {
+  border-top: 1px solid #262626;
+  border-bottom: 1px solid #262626;
+  padding: 20px 0px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.guest-container .details {
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.guest-container .details h4 {
+  font-size: 22px;
+  color: #262626;
+  margin-bottom: 15px;
+}
+
+.guest-container .details p {
+  font-size: 16px;
+  color: #262626;
+  margin-bottom: 10px;
+}
+
+.guest-container .location {
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  padding-top: 20px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+
+.guest-container .location img {
+  width: 100%;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.guest-container .location .date-holder {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-size: 14px;
+}
+
+.guest-container .location .date-holder img {
+  width: 30px;
+  margin-right: 20px;
+  border-radius: 0px;
+}
+
+.guest-container .location .location-holder {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.guest-container .location .location-holder img {
+  width: 30px;
+  margin-right: 20px;
+  border-radius: 0px;
+}
+
+.guest-container .button-holder {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin: 0;
+}
+
+.guest-container .button-holder .btn {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 5px;
+  width: 100px;
+  text-align: center;
+}
+
+
+.btn-cancel {
+  background-color: red;
+}
+.btn-ignore {
+  background-color: red;
+}
+
+
 
 /* -------- CARD --------- */
 
