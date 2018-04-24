@@ -2,20 +2,16 @@
   <h2 class="form-title">Edit Profile</h2>
   <form method="POST" action="/profiles/update">
     <div class="field">
-      <input type="text" placeholder="Email" value="<%= user.email %>" name="email" />
-      <%= console.log(user.email) %>
+      <input type="email" placeholder="Email" value="<%= user.email %>" name="email" />
     </div>
     <div class="field">
       <input type="text" placeholder="First Name" value="<%= user.firstName %>" name="firstName" />
-      <%= console.log(user.firstName) %>
     </div>
     <div class="field">
       <input type="text" placeholder="Last Name" value="<%= user.lastName %>" name="lastName" />
-      <%= console.log(user.lastName) %>
     </div>
     <div class="field">
-      <input type="text" placeholder="Picture" value="<%= user.picture %>" name="picture" />
-      <%= console.log(user.picture) %>
+      <input type="file" placeholder="Picture" value="<%= user.picture %>" name="picture" />
     </div>
     <div class="field submit">
       <button type="submit" class="btn btn-primary">Edit</button>

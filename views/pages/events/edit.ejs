@@ -5,19 +5,19 @@
       <input type="text" placeholder="Title" value="<%= event.title %>" name="title" />
     </div>
     <div class="field">
-      <input type="text" placeholder="Description" value="<%= event.description %>" name="description" />
+      <textarea type="text" placeholder="Description" name="description"><%= event.description %></textarea>
     </div>
     <div class="field">
       <input type="text" placeholder="Location" value="<%= event.location %>" name="location" />
     </div>
     <div class="field">
-      <input type="text" placeholder="Date" value="<%= event.date %>" name="date" />
+      <input type="date" placeholder="Date" value="<%= event.date %>" name="date" />
     </div>
     <div class="field">
-      <input type="text" placeholder="Time" value="<%= event.time %>" name="time" />
+      <input type="time" placeholder="Time" value="<%= event.time %>" name="time" />
     </div>
     <div class="field">
-      <input type="text" placeholder="Picture" value="<%= event.picture %>" name="picture" />
+      <input type="file" placeholder="Picture" value="<%= event.picture %>" name="picture" />
     </div>
     <div class="field submit">
       <button type="submit" class="btn btn-primary">Edit</button>

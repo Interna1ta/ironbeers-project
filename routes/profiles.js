@@ -43,7 +43,7 @@ router.post('/update', (req, res, next) => {
   User.findByIdAndUpdate(userId, { $set: { ...data } }, {new: true})
     .then((result) => {
       console.log(result);
-      res.redirect(`/profile`);
+      res.redirect(`/profiles/profile`);
     })
     .catch(next);
 });
