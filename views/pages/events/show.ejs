@@ -24,6 +24,7 @@
     <% if (event.guests.length === 0) { %>
       <h4>There is no guests yet</h4>
       <p>Invite your first one</p>
+      <a href="/events/<%= event._id %>/invite">Invite</a>
     <% } else { %>
       <h4>Guests</h4>
       <div class="guests-card">

@@ -5,6 +5,7 @@ const express = require('express');
 const Event = require('../models/event');
 const uploadCloud = require('../config/cloudinary.js');
 const moment = require('moment');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 
 // ---------- LIST INDEX ---------- //
@@ -146,6 +147,79 @@ router.post('/:id/cancel', (req, res, next) => {
 
 // ---------- INVITE EVENT ---------- //
 
+// ----- get ----- //
+router.get('/:id/invite', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
+  const eventId = req.params.id;
+  Event.findById(eventId)
+    .then((result) => {
+      const data = {
+        event: result
+      };
+      res.render('pages/events/invite', data);
+    })
+    .catch(next);
+});
+
 // ----- Post ----- //
+
+router.post('/:id/invite', (req, res, next) => {
+  let { email, message } = req.body;
+  let transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'ironbeers.invite@gmail.com',
+      pass: 'ironbeers1234'
+    }
+  });
+  transporter.sendMail({
+    from: '"IRON BEERS 🍻" <ironbeers.invite@gmail.com>',
+    to: email,
+    subject: 'You have an invitation',
+    text: message,
+    html: `<b>${message}</b>`
+  })
+    .then(info => res.render('message', { email, message, info }))
+    .catch(error => console.log(error));
+});
+
+// ---------- ACCEPT EVENT ---------- //
+
+// ----- get ----- //
+router.get('/:id/accept', (req, res, next) => {
+  const eventId = req.params.id;
+  Event.findById(eventId)
+    .then((result) => {
+      const data = {
+        event: result
+      };
+      res.render('pages/events/accept', data);
+    })
+    .catch(next);
+});
+
+// ----- Post ----- //
+
+router.post('/:id/accept', (req, res, next) => {
+  let { email, message } = req.body;
+  let transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'ironbeers.invite@gmail.com',
+      pass: 'ironbeers1234'
+    }
+  });
+  transporter.sendMail({
+    from: '"IRON BEERS 🍻" <ironbeers.invite@gmail.com>',
+    to: email,
+    subject: 'You have an invitation',
+    text: message,
+    html: `<b>${message}</b>`
+  })
+    .then(info => res.render('message', { email, message, info }))
+    .catch(error => console.log(error));
+});
 
 module.exports = router;
