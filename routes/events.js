@@ -3,9 +3,12 @@
 // -- require npm packages
 const express = require('express');
 const Event = require('../models/event');
+const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
 const moment = require('moment');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
 const router = express.Router();
 
 // ---------- LIST INDEX ---------- //
@@ -185,7 +188,7 @@ router.post('/:id/invite', (req, res, next) => {
     to: email,
     subject: 'You have an invitation',
     text: message,
-    html: `<b>${message}</b>`
+    html: `<a href=${message}>accept invitation</a>`
   })
     .then(info => res.render('message', { email, message, info }))
     .catch(error => console.log(error));
@@ -199,7 +202,8 @@ router.get('/:id/accept', (req, res, next) => {
   Event.findById(eventId)
     .then((result) => {
       const data = {
-        event: result
+        event: result,
+        messages: req.flash('message-name')
       };
       res.render('pages/events/accept', data);
     })
@@ -209,23 +213,51 @@ router.get('/:id/accept', (req, res, next) => {
 // ----- Post ----- //
 
 router.post('/:id/accept', (req, res, next) => {
-  let { email, message } = req.body;
-  let transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'ironbeers.invite@gmail.com',
-      pass: 'ironbeers1234'
-    }
-  });
-  transporter.sendMail({
-    from: '"IRON BEERS 🍻" <ironbeers.invite@gmail.com>',
-    to: email,
-    subject: 'You have an invitation',
-    text: message,
-    html: `<b>${message}</b>`
-  })
-    .then(info => res.render('message', { email, message, info }))
-    .catch(error => console.log(error));
+  const eventId = req.params.id;
+  if (req.session.user) {
+    return res.redirect('/events');
+  };
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (!email) {
+    req.flash('message-name', 'Please provide email');
+    return res.redirect(`/events/${eventId}/accept`);
+  };
+
+  if (!password) {
+    req.flash('message-name', 'Please provide password');
+    return res.redirect(`/events/${eventId}/accept`);
+  }
+
+  User.findOne({ email: email })
+    .then(result => {
+      if (result) {
+        req.flash('message-name', 'Email already taken');
+        return res.redirect(`/events/${eventId}/accept`);
+      }
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+      const user = User({
+        email,
+        password: hashPass
+      });
+      return user.save()
+        .then(() => {
+          req.session.user = user;
+          req.flash('message-name', 'Welcome, please update your profile');
+
+          Event.findByIdAndUpdate(eventId, { $push: { guests: [user._id] } })
+            .then(() => {
+              res.redirect(`/`);
+            })
+            .catch(next);
+
+          return res.redirect('/events');
+        });
+    })
+    .catch(next);
 });
 
 module.exports = router;

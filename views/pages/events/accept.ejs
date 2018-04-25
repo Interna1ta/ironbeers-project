@@ -1,6 +1,6 @@
 <div class="form-container container">
-  <h2 class="form-title">Sign up</h2>
-  <form method="POST" action="/users/signup">
+  <h2 class="form-title">Join the Party!</h2>
+  <form method="POST" action="/events/<%= event._id %>/accept">
     <div class="field">
       <input type="email" placeholder="Email" name="email" />
     </div>
@@ -11,13 +11,4 @@
       <button type="submit" class="btn btn-primary">Sign up</button>
     </div>
   </form>
-  <% if (messages[0]) { %>
-    <ul class="validation">
-      <li><%= messages[0] %></li>
-    </ul>
-  <% }; %>
-  <div class="link">
-    <p>Already have an account? </p>
-    <a href="/users/login">Log in</a>
-  </div>
 </div>
