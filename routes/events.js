@@ -175,6 +175,7 @@ router.get('/:id/invite', (req, res, next) => {
 // ----- Post ----- //
 
 router.post('/:id/invite', (req, res, next) => {
+  const eventId = req.params.id;
   let { email, message } = req.body;
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -190,7 +191,8 @@ router.post('/:id/invite', (req, res, next) => {
     text: message,
     html: `<a href=${message}>accept invitation</a>`
   })
-    .then(info => res.render('message', { email, message, info }))
+    // .then(info => res.render('message', { email, message, info }))
+    .then(info => res.redirect(`/events/${eventId}`))
     .catch(error => console.log(error));
 });
 
