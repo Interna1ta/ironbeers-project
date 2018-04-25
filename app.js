@@ -41,7 +41,7 @@ app.use(session({
 }));
 
 // ---------- CONNECT THE DATABASE ----------
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.LOCAL_URL);
 
 // -- middlewares
 app.use(logger('dev'));

@@ -21,18 +21,15 @@
     </div>
   </div>
   <div class="guests">
+      <a href="/events/<%= event._id %>/invite"><img src="/images/UserAdd.svg" alt="add" class="icon-btn"></a>
     <% if (event.guests.length === 0) { %>
-      <h4>There is no guests yet</h4>
-      <p>Invite your first one</p>
-      <a href="/events/<%= event._id %>/invite">Invite</a>
+      <h4>There are no guests yet</h4>
     <% } else { %>
-      <h4>Guests</h4>
       <div class="guests-card">
-        <h4><% event.guests.lenght %> Ironhackers</h4>
+        <h4><%= event.guests.length %> Ironhackers</h4>
         <% event.guests.forEach((guest) => { %>
-          <img src="<%= guest.imgPath %>" alt="avatar" class="avatar">
+          <img src="<%= guest.imgPath %>" alt="avatar" class="avatar-sm">
         <% }); %>
-        <a href="/events/<%= event._id %>/invite">Invite</a>
       </div>
     <% }; %>
   </div>
@@ -45,8 +42,7 @@
     <div class="date-holder">
       <img src="/images/Date.svg" alt="">
       <div class="date">
-        <p><%= event.time %></p>
-        <p><%= event.date %></p>
+        <p><%= event.date %> at <%= event.time %> </p>
       </div>
     </div>
     <div class="location-holder">

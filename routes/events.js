@@ -18,9 +18,15 @@ router.get('/', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
-  const owner = req.session.user;
+  const user = req.session.user;
 
-  Event.find({ owner: owner, active: true }).populate('owner')
+  // @ASK_ANDRE
+  // Event.findOne({ guests: { $elemMatch: {_id: user._id} } })
+  //   .then((result) => {
+  //     console.log(result);
+  //   });
+
+  Event.find({ owner: user, active: true }).sort([['date', 1]]).populate('owner')
     .then((result) => {
       const data = {
         events: result,
@@ -216,9 +222,6 @@ router.get('/:id/accept', (req, res, next) => {
 
 router.post('/:id/accept', (req, res, next) => {
   const eventId = req.params.id;
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
 
   const email = req.body.email;
   const password = req.body.password;
