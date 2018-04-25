@@ -45,11 +45,17 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
     return res.redirect('/');
   };
 
+  let location = {
+    type: 'Point',
+    coordinates: [req.body.longitude, req.body.latitude]
+  };
+
   const event = new Event(req.body);
   event.owner = req.session.user;
   event.date = moment(req.body.date).format('dddd[, ]MMMM Do');
   event.imgPath = req.file.url;
   event.imgName = req.file.name;
+  event.location = location;
   event.save()
     .then(() => {
       // res.redirect(`/events/${event._id}`);
