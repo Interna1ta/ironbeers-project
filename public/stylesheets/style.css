@@ -603,6 +603,15 @@ p {
 /* ----- GOOGLE MAPS ----- */
 
 #map {
-  height: 200px;
+  margin-bottom: 5px;
+  height: 250px;
   width: 100%;
+}
+
+.location {
+  margin-bottom: 15px;
+}
+
+textarea {
+  resize: none;
 }

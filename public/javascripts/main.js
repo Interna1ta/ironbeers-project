@@ -3,23 +3,23 @@
 function main () {
   // -- utility functions
 
-  // function getUserLocation () {
-  //   return new Promise((resolve, reject) => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition((position) => {
-  //         const userPosition = {
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude
-  //         };
-  //         resolve(userPosition);
-  //       }, () => {
-  //         resolve();
-  //       });
-  //     } else {
-  //       resolve();
-  //     }
-  //   });
-  // }
+  function getUserLocation () {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const userPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          resolve(userPosition);
+        }, () => {
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
 
   let marker = null;
 
@@ -46,24 +46,12 @@ function main () {
   };
   const map = new google.maps.Map(container, options);
 
-  // axios.get('/spots/json')
-  //   .then(response => {
-  //     response.data.forEach((event) => {
-  //       const location = {
-  //         lat: event.location.coordinates[0],
-  //         lng: event.location.coordinates[1]
-  //       };
-  //       addMarker(map, location, event.title);
-  //       console.log(event);
-  //     });
-  //   });
-
-  // getUserLocation()
-  //   .then((userLocation) => {
-  //     if (userLocation) {
-  //       addMarker(map, userLocation, 'your location');
-  //     }
-  //   });
+  getUserLocation()
+    .then((userLocation) => {
+      if (userLocation) {
+        addMarker(map, userLocation, 'your location');
+      }
+    });
 
   // This event listener calls addMarker() when the map is clicked.
   google.maps.event.addListener(map, 'click', function (event) {
@@ -85,6 +73,29 @@ function main () {
 
     addMarker(map, location, 'event location');
   });
-}
 
+  // const geocoder = new google.maps.Geocoder();
+
+  // document.getElementById('submitLocation').addEventListener('click', function () {
+  //   geocodeAddress(geocoder, map);
+  // });
+
+  // function geocodeAddress (geocoder, resultsMap) {
+  //   let address = document.getElementById('location').value;
+
+  //   geocoder.geocode({ 'address': address }, function (results, status) {
+  //     if (status === 'OK') {
+  //       resultsMap.setCenter(results[0].geometry.location);
+  //       let marker = new google.maps.Marker({
+  //         map: resultsMap,
+  //         position: results[0].geometry.location
+  //       });
+  //       document.getElementById('latitude').value = results[0].geometry.location.lat();
+  //       document.getElementById('longitude').value = results[0].geometry.location.lng();
+  //     } else {
+  //       console.log('Geocode was not successful for the following reason: ' + status);
+  //     }
+  //   });
+  // }
+}
 window.addEventListener('load', main);

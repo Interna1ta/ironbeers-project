@@ -58,8 +58,8 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
   event.location = location;
   event.save()
     .then(() => {
-      // res.redirect(`/events/${event._id}`);
-      res.redirect(`/`);
+      res.redirect(`/events/${event._id}`);
+      // res.redirect(`/`);
     })
     .catch(next);
 });
