@@ -32,13 +32,11 @@ router.post('/signup', (req, res, next) => {
   const password = req.body.password;
 
   if (!email) {
-    // @todo send flash 'signup' PLEASE PROVIDE USERNAME
     req.flash('message-name', 'Please provide email');
     return res.redirect('/users/signup');
   };
 
   if (!password) {
-    // @todo send flash 'signup' PLEASE PROVIDE PASSWORD
     req.flash('message-name', 'Please provide password');
     return res.redirect('/users/signup');
   }
@@ -46,7 +44,6 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email: email })
     .then(result => {
       if (result) {
-        // @todo send flash 'signup' USERNAME ALREADY TAKEN
         req.flash('message-name', 'Username already taken');
         return res.redirect('/users/signup');
       }
@@ -61,8 +58,7 @@ router.post('/signup', (req, res, next) => {
       return user.save()
         .then(() => {
           req.session.user = user;
-          // @todo WELCOME <USERNAME> ESTE FLASH DEBERIA DESAPARECER CON EL TIEMPO (MAYBE SOME FRONT END JS???)
-          req.flash('message-name', 'Welcome, please don´t forget to update your profile');
+          req.flash('message-name', 'Welcome, please update your profile');
           return res.redirect('/events');
         });
     })
@@ -99,7 +95,6 @@ router.post('/login', (req, res, next) => {
       }
 
       req.session.user = result;
-      req.flash('message-name', 'Welcome back friend!');
       res.redirect('/events');
     })
     .catch(next);

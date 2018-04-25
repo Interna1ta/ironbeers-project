@@ -1,10 +1,13 @@
 <div class="container">
     <div>
       <div class="profile-information">
-        <% if (user.picture) { %>
-          <p><%= user.picture %></p>
+        <% if (user.imgPath) { %>
+          <img src="<%= user.imgPath %>"class="avatar" alt="">
         <% } else { %>
-          <img src="/images/user.svg" alt="">
+          <img src="/images/avatar.png" class="avatar" alt="">
+        <% }; %>
+        <% if (user.lastName && user.firstName) { %>
+          <p class="name"><%= user.lastName %>, <%= user.firstName %></p>
         <% }; %>
         <p class="email"><%= user.email %></p>
       </div>

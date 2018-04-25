@@ -28,7 +28,7 @@ const eventSchema = new Schema({
     coordinates: [Number]
   },
   date: {
-    type: String
+    type: Date
   },
   time: {
     type: String

@@ -1,24 +1,45 @@
 <div class="form-container">
   <h2 class="form-title">Edit Profile</h2>
-  <form method="POST" action="/profiles/update">
+  <form method="POST" action="/profiles/update" enctype="multipart/form-data">
     <div class="field">
-      <input type="text" placeholder="Email" value="<%= user.email %>" name="email" />
-      <%= console.log(user.email) %>
+      <input type="email" placeholder="Email" value="<%= user.email %>" name="email" />
     </div>
     <div class="field">
       <input type="text" placeholder="First Name" value="<%= user.firstName %>" name="firstName" />
-      <%= console.log(user.firstName) %>
     </div>
     <div class="field">
       <input type="text" placeholder="Last Name" value="<%= user.lastName %>" name="lastName" />
-      <%= console.log(user.lastName) %>
     </div>
     <div class="field">
-      <input type="text" placeholder="Picture" value="<%= user.picture %>" name="picture" />
-      <%= console.log(user.picture) %>
+      <input type="file" placeholder="Picture" value="<%= user.picture %>" name="imgPath" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+      <label for="file">Upload your avatar</label>
     </div>
     <div class="field submit">
       <button type="submit" class="btn btn-primary">Edit</button>
     </div>
   </form>
 </div>
+
+<!-- @TODO extract the script -->
+<script>
+  var inputs = document.querySelectorAll( '.inputfile' );
+  Array.prototype.forEach.call( inputs, function( input )
+  {
+    var label	 = input.nextElementSibling,
+      labelVal = label.innerHTML;
+
+    input.addEventListener( 'change', function( e )
+    {
+      var fileName = '';
+      if( this.files && this.files.length > 1 )
+        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+      else
+        fileName = e.target.value.split( '\\' ).pop();
+      
+      if( fileName )
+        label.innerHTML = fileName;
+      else
+        label.innerHTML = labelVal;
+    });
+  });
+</script>
