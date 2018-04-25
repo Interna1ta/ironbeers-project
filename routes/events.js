@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
   };
   const owner = req.session.user;
 
-  Event.find({ owner: owner, active: true }).populate('owner', 'email -_id')
+  Event.find({ owner: owner, active: true }).populate('owner')
     .then((result) => {
       const data = {
         events: result,
@@ -74,7 +74,7 @@ router.get('/:id', (req, res, next) => {
     return res.redirect('/');
   };
   const eventId = req.params.id;
-  Event.findById(eventId).populate('owner')
+  Event.findById(eventId).populate('owner').populate('guests')
     .then((result) => {
       const data = {
         event: result

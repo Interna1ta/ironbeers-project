@@ -30,8 +30,9 @@
       <div class="guests-card">
         <h4><% event.guests.lenght %> Ironhackers</h4>
         <% event.guests.forEach((guest) => { %>
-          <img src="/images/avatar.png" alt="avatar" class="avatar">
+          <img src="<%= guest.imgPath %>" alt="avatar" class="avatar">
         <% }); %>
+        <a href="/events/<%= event._id %>/invite">Invite</a>
       </div>
     <% }; %>
   </div>

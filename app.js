@@ -41,7 +41,7 @@ app.use(session({
 }));
 
 // ---------- CONNECT THE DATABASE ----------
-mongoose.connect('mongodb://127.0.0.1:27017/ironbeers');
+mongoose.connect(process.env.MONGODB_URI);
 
 // -- middlewares
 app.use(logger('dev'));
