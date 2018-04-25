@@ -1,6 +1,6 @@
 <div class="form-container">
   <h1 class="form-title">Create Event</h1>
-  <form method="POST" action="/events">
+  <form method="POST" action="/events" enctype="multipart/form-data">
     <div class="field">
       <input type="text" placeholder="Title" name="title" />
     </div>
@@ -10,17 +10,40 @@
     <div class="field">
       <input type="text" placeholder="Location" name="location" />
     </div>
-    <div class="field">
+    <div class="field date-time-field">
       <input type="date" placeholder="Date" name="date" />
-    </div>
-    <div class="field">
       <input type="time" placeholder="Time" name="time" />
     </div>
     <div class="field">
-      <input type="file" placeholder="Picture" name="picture" />
+      <input type="file" placeholder="Picture" name="imgPath" id="file" class="inputfile"/>
+      <label for="file">Upload the event Picture</label>
     </div>
     <div class="field submit">
       <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </form>
 </div>
+
+<!-- @TODO extract the script -->
+<script>
+  var inputs = document.querySelectorAll( '.inputfile' );
+  Array.prototype.forEach.call( inputs, function( input )
+  {
+    var label	 = input.nextElementSibling,
+      labelVal = label.innerHTML;
+
+    input.addEventListener( 'change', function( e )
+    {
+      var fileName = '';
+      if( this.files && this.files.length > 1 )
+        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+      else
+        fileName = e.target.value.split( '\\' ).pop();
+      
+      if( fileName )
+        label.innerHTML = fileName;
+      else
+        label.innerHTML = labelVal;
+    });
+  });
+</script>

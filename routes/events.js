@@ -2,8 +2,9 @@
 
 // -- require npm packages
 const express = require('express');
-// const User = require('../models/user');
 const Event = require('../models/event');
+const uploadCloud = require('../config/cloudinary.js');
+const moment = require('moment');
 const router = express.Router();
 
 // ---------- LIST INDEX ---------- //
@@ -19,8 +20,8 @@ router.get('/', (req, res, next) => {
     .then((result) => {
       const data = {
         events: result,
-        messages: req.flash('message-name'
-        )};
+        messages: req.flash('message-name')
+      };
       res.render('pages/events/index', data);
     })
     .catch(next);
@@ -38,13 +39,16 @@ router.get('/create', (req, res, next) => {
 });
 
 // ----- Post ----- //
-router.post('/', (req, res, next) => {
+router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
 
   const event = new Event(req.body);
   event.owner = req.session.user;
+  event.date = moment(req.body.date).format('dddd[, ]MMMM Do');
+  event.imgPath = req.file.url;
+  event.imgName = req.file.name;
   event.save()
     .then(() => {
       // res.redirect(`/events/${event._id}`);
@@ -89,19 +93,32 @@ router.get('/:id/edit', (req, res, next) => {
 });
 
 // ----- Post ----- //
-router.post('/:id', (req, res, next) => {
+router.post('/:id', uploadCloud.single('imgPath'), (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
   const eventId = req.params.id;
-  const data = {
-    title: req.body.title,
-    description: req.body.description,
-    location: req.body.location,
-    date: req.body.date,
-    time: req.body.time,
-    picture: req.body.picture
-  };
+  let data;
+
+  if (req.file) {
+    data = {
+      title: req.body.title,
+      description: req.body.description,
+      location: req.body.location,
+      date: req.body.date,
+      time: req.body.time,
+      imgPath: req.file.url,
+      imgName: req.file.originalname
+    };
+  } else {
+    data = {
+      title: req.body.title,
+      description: req.body.description,
+      location: req.body.location,
+      date: req.body.date,
+      time: req.body.time
+    };
+  }
   Event.findOneAndUpdate(eventId, { $set: { ...data } })
     .then(() => {
       res.redirect(`/events/${eventId}`);

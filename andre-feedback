@@ -18,3 +18,7 @@ module.exports = {
   requireUser,
   requireAdmin
 }
+
+
+FOR MULTIPLE UPLOADS
+ data-multiple-caption="{count} files selected" multiple 

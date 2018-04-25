@@ -165,18 +165,50 @@ p {
   margin-bottom: 40px;
 }
 
+.guest-container .date-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 20px;
+  margin-bottom: 30px;
+}
+
+.guest-container .date {
+  font-weight: 100;
+}
+
+.guest-container .time {
+  font-weight: 100;
+}
+
+.guest-container .title {
+  margin-bottom: 40px;
+}
+
+
+
 .guest-container .owner {
   display: flex;
   align-items: flex-start;
   margin-bottom: 30px;
 }
 
+.guest-container .owner .info h4 {
+  font-weight: 100;
+}
+
+.guest-container .owner .info h4:first-child {
+  font-weight: 400;
+}
+
 .guest-container .owner h4 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .guest-container .avatar {
-  width: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 1px solid #262626;
   margin-right: 20px;
@@ -193,7 +225,7 @@ p {
 
 .guest-container .details {
   border-radius: 12px;
-  background-color: white;
+  background-color: #1487fe;
   text-align: center;
   margin-bottom: 30px;
   padding: 20px;
@@ -201,23 +233,29 @@ p {
 
 .guest-container .details h4 {
   font-size: 22px;
-  color: #262626;
+  color: white;
   margin-bottom: 15px;
 }
 
 .guest-container .details p {
   font-size: 16px;
-  color: #262626;
+  color: white;
   margin-bottom: 10px;
 }
 
 .guest-container .location {
   width: 100%;
-  background-color: white;
+  background-color: #1487fe;
+  text-align: center;
   border-radius: 12px;
   padding-top: 20px;
-  padding-left: 20px;
   margin-bottom: 20px;
+}
+
+.guest-container .location h4 {
+  font-size: 22px;
+  color: white;
+  margin-bottom: 15px;
 }
 
 
@@ -228,13 +266,16 @@ p {
 
 .guest-container .location .date-holder {
   display: flex;
+  text-align: left  ;
   align-items: center;
   height: 50px;
   font-size: 14px;
+  padding-left: 20px;
+  color: white
 }
 
 .guest-container .location .date-holder img {
-  width: 30px;
+  width: 20px;
   margin-right: 20px;
   border-radius: 0px;
 }
@@ -245,10 +286,12 @@ p {
   height: 50px;
   margin-bottom: 20px;
   font-size: 14px;
+  padding-left: 20px;
+  color: white;
 }
 
 .guest-container .location .location-holder img {
-  width: 30px;
+  width: 20px;
   margin-right: 20px;
   border-radius: 0px;
 }
@@ -308,6 +351,12 @@ p {
   padding: 10px 0px;
 }
 
+.event-card .title {
+  text-align: center;
+  font-size: 25px;
+  margin: 20px 0px;
+}
+
 .event-card .guests {
   text-align: center;
   padding: 10px 0px;
@@ -345,6 +394,14 @@ p {
 .field {
   width: 100%;
   padding-bottom: 15px;
+}
+
+.date-time-field {
+  display: flex;
+}
+
+.date-time-field input:first-child{
+  margin-right: 20px;
 }
 .field input {
   width: 100%;
@@ -508,8 +565,8 @@ p {
 }
 
 .profile-information .avatar {
-  width: 150px;
-  height: 150px;
+  height: 200px;
+  width: 200px;
   border-radius: 50%;
   border: 1px solid black;
 }

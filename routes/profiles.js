@@ -36,13 +36,14 @@ router.get('/update', (req, res, next) => {
 router.post('/update', uploadCloud.single('imgPath'), (req, res, next) => {
   const userId = req.session.user._id;
   let data;
+
   if (req.file) {
     data = {
       email: req.body.email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       imgPath: req.file.url,
-      imgName: req.file.name
+      imgName: req.file.originalname
     };
   } else {
     data = {

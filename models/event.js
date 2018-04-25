@@ -27,14 +27,21 @@ const eventSchema = new Schema({
     type: String
   },
   date: {
-    type: Date
+    type: String
   },
   time: {
     type: String
   },
-  picture: {
+  imgPath: {
     type: String
   },
+  imgName: {
+    type: String
+  },
+  pictures: [{
+    imgPath: String,
+    imgName: String
+  }],
   active: {
     type: Boolean,
     default: true

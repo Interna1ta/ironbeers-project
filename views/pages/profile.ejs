@@ -1,27 +1,23 @@
 <div class="container">
-    <div>
-      <div class="profile-information">
-        <% if (user.imgPath) { %>
-          <img src="<%= user.imgPath %>"class="avatar" alt="">
-        <% } else { %>
-          <img src="/images/avatar.png" class="avatar" alt="">
-        <% }; %>
-        <% if (user.lastName && user.firstName) { %>
-          <p class="name"><%= user.lastName %>, <%= user.firstName %></p>
-        <% }; %>
-        <p class="email"><%= user.email %></p>
-      </div>
-      <div class="edit-buttons">
-        <% if (user._id == currentUser._id) { %>
-          <!-- <a href="/profiles/update" class="btn btn-primary">Edit</a> -->
-          <form method="GET" action="/profiles/update">
-            <button class="btn btn-primary">Edit</button>
-          </form>
-          <form method="POST" action="/users/logout">
-            <button src="/" class="btn btn-primary">Logout</button>
-          </form>
-        <% }; %>
-      </div>
-    </div>
-
+  <div class="profile-information">
+    <% if (user.imgPath) { %>
+      <img src="<%= user.imgPath %>" class="avatar" alt="">
+    <% } else { %>
+      <img src="/images/avatar.png" class="avatar" alt="">
+    <% }; %>
+    <% if (user.lastName && user.firstName) { %>
+      <p class="name"><%= user.lastName %>, <%= user.firstName %></p>
+    <% }; %>
+    <p class="email"><%= user.email %></p>
+  </div>
+  <div class="edit-buttons">
+    <% if (user._id == currentUser._id) { %>
+      <form method="GET" action="/profiles/update">
+        <button class="btn btn-primary">Edit</button>
+      </form>
+      <form method="POST" action="/users/logout">
+        <button src="/" class="btn btn-primary">Logout</button>
+      </form>
+    <% }; %>
+  </div>
 </div>

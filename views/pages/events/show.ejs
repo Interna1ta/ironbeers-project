@@ -1,10 +1,24 @@
 <div class="container guest-container">
-  <h3><%= event.date %></h3>
-  <h2><%= event.title %></h2>
-  <h4><%= event.time %></h4>
+  <div class="date-time">
+    <h3 class="date"><%= event.date %></h3>
+    <h3 class="time"><%= event.time %></h3>
+  </div>
+  <h2 class="title"><%= event.title %></h2>
   <div class="owner">
-    <img src="/images/avatar.png" alt="avatar" class="avatar">
-    <h4><%= event.owner.email %></h4>
+    <% if (event.owner.imgPath) { %>
+      <img src="<%= event.owner.imgPath %>" class="avatar" alt="">
+    <% } else { %>
+      <img src="/images/avatar.png" class="avatar" alt="">
+    <% }; %>
+    <div class="info">
+      <h4>Organizer</h4>
+      <% if (event.owner.firstName && event.owner.lastName) { %>
+        <h4><%= event.owner.lastName %>, <%= event.owner.firstName %></h4>
+        <h4><%= event.owner.email %></h4>
+      <% } else { %>
+        <h4><%= event.owner.email %></h4>
+      <% }; %>
+    </div>
   </div>
   <div class="guests">
     <% if (event.guests.length === 0) { %>
@@ -25,6 +39,7 @@
     <p><%= event.description %></p>
   </div>
   <div class="location">
+    <h4>When & Where</h4>
     <div class="date-holder">
       <img src="/images/date.svg" alt="">
       <div class="date">
@@ -42,7 +57,7 @@
   </div>
   <div class="button-holder">
     <% if (event.owner._id == currentUser._id) { %>
-      <a href="/" class="btn btn-edit">Edit</a>
+      <a href="/events/<%= event._id %>/edit" class="btn btn-edit">Edit</a>
       <form method="POST" action="/events/<%= event._id %>/cancel">
         <button type="submit" class="btn btn-cancel">Cancel</button>
       </form>

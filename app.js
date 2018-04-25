@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 // -- require npm packages
 const express = require('express');
@@ -10,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
+const cloudinary = require('cloudinary').v2;
 
 // -- require your own modules (router, models)
 const index = require('./routes/index');
@@ -50,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts); // EJS layouts
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.user;
+  res.locals.cloudinary = cloudinary;
   console.log('USER SESSION', req.session.id);
   next();
 });
