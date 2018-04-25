@@ -442,6 +442,18 @@ p {
   flex-direction: column;
 }
 
-.edit-button a {
-  /* margin-bottom: 10px; */
+
+
+
+
+
+
+
+
+
+/* ----- GOOGLE MAPS ----- */
+
+#map {
+  height: 200px;
+  width: 100%;
 }

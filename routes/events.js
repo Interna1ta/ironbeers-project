@@ -43,8 +43,14 @@ router.post('/', (req, res, next) => {
     return res.redirect('/');
   };
 
+  let location = {
+    type: 'Point',
+    coordinates: [req.body.longitude, req.body.latitude]
+  };
+
   const event = new Event(req.body);
   event.owner = req.session.user;
+  event.location = location;
   event.save()
     .then(() => {
       // res.redirect(`/events/${event._id}`);
