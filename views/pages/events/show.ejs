@@ -28,7 +28,11 @@
       <div class="guests-card">
         <h4><%= event.guests.length %> Ironhackers</h4>
         <% event.guests.forEach((guest) => { %>
+          <% if (guest.imgPath) { %>
           <img src="<%= guest.imgPath %>" alt="avatar" class="avatar-sm">
+          <% } else { %>
+          <img src="/images/avatar.png" alt="avatar" class="avatar-sm">
+          <% } %>
         <% }); %>
       </div>
     <% }; %>
@@ -47,9 +51,15 @@
     </div>
     <div class="location-holder">
       <img src="/images/Location.svg" alt="">
-      <p><%= event.location %></p>
+      <p><%= event.location.address %></p>
     </div>
-    <img src="/images/location.png" alt="avatar" class="mapa">
+    <div class="map-container">
+      <p id="marker">🍻</p>
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center=
+        <%= event.location.coordinates[1] %>,
+          <%= event.location.coordinates[0] %>&zoom=16&size=1600x400&key=
+            <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
+    </div>
   </div>
   <div class="pictures">
   </div>
@@ -64,3 +74,4 @@
     <% }; %>
   </div>
 </div>
+

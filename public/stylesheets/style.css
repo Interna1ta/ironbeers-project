@@ -625,3 +625,18 @@ p {
 textarea {
   resize: none;
 }
+
+.map-container {
+  position: relative;
+}
+#marker {
+  width: 50px;
+  position: absolute;
+  left: 48%;
+  top: 47%;
+  font-size: 40px;
+  line-height: 48px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 50%;
+}

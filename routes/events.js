@@ -254,11 +254,11 @@ router.post('/:id/accept', (req, res, next) => {
 
           Event.findByIdAndUpdate(eventId, { $push: { guests: [user._id] } })
             .then(() => {
-              res.redirect(`/`);
+              return res.redirect(`/events/${eventId}`);
             })
             .catch(next);
 
-          return res.redirect('/events');
+          return res.redirect(`/events/${eventId}`);
         });
     })
     .catch(next);
