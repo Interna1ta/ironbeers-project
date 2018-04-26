@@ -11,9 +11,9 @@ const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 const router = express.Router();
 
-// ---------- LIST INDEX ---------- //
+// ------------------------------ LIST INDEX ------------------------------ //
 
-// ----- Get ----- //
+// --------------- Get --------------- //
 router.get('/', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -35,9 +35,9 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-// ---------- CREATE ---------- //
+// ------------------------------ CREATE ------------------------------ //
 
-// ----- Get ----- //
+// --------------- Get --------------- //
 router.get('/create', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -46,7 +46,7 @@ router.get('/create', (req, res, next) => {
   res.render('pages/events/new');
 });
 
-// ----- Post ----- //
+// --------------- Post --------------- //
 router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -71,9 +71,9 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
     })
     .catch(next);
 });
-// ---------- SHOW EVENT ---------- //
+// ------------------------------ SHOW EVENT ------------------------------ //
 
-// ----- Get ----- //
+// --------------- Get --------------- //
 router.get('/:id', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -91,7 +91,7 @@ router.get('/:id', (req, res, next) => {
 
 // ---------- UPDATE EVENT ---------- //
 
-// ----- Get ----- //
+// --------------- Get --------------- //
 router.get('/:id/edit', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -107,7 +107,7 @@ router.get('/:id/edit', (req, res, next) => {
     .catch(next);
 });
 
-// ----- Post ----- //
+// --------------- Post --------------- //
 router.post('/:id', uploadCloud.single('imgPath'), (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -141,9 +141,9 @@ router.post('/:id', uploadCloud.single('imgPath'), (req, res, next) => {
     .catch(next);
 });
 
-// ---------- CANCEL EVENT ---------- //
+// ------------------------------ CANCEL EVENT ------------------------------ //
 
-// ----- Post ----- //
+// --------------- Post --------------- //
 router.post('/:id/cancel', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -159,9 +159,9 @@ router.post('/:id/cancel', (req, res, next) => {
     .catch(next);
 });
 
-// ---------- INVITE EVENT ---------- //
+// ------------------------------ INVITE EVENT ------------------------------ //
 
-// ----- get ----- //
+// --------------- get --------------- //
 router.get('/:id/invite', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
@@ -177,7 +177,7 @@ router.get('/:id/invite', (req, res, next) => {
     .catch(next);
 });
 
-// ----- Post ----- //
+// --------------- Post --------------- //
 
 router.post('/:id/invite', (req, res, next) => {
   const eventId = req.params.id;
@@ -194,16 +194,18 @@ router.post('/:id/invite', (req, res, next) => {
     to: email,
     subject: 'You have an invitation',
     text: message,
-    html: `<a href=${message}>accept invitation</a>`
+    html: `
+    <h1>
+    <a href=${message}>accept invitation</a>`
   })
     // .then(info => res.render('message', { email, message, info }))
     .then(info => res.redirect(`/events/${eventId}`))
     .catch(error => console.log(error));
 });
 
-// ---------- ACCEPT EVENT ---------- //
+// ------------------------------ ACCEPT EVENT ------------------------------ //
 
-// ----- get ----- //
+// --------------- Get --------------- //
 router.get('/:id/accept', (req, res, next) => {
   const eventId = req.params.id;
   Event.findById(eventId)
@@ -217,7 +219,7 @@ router.get('/:id/accept', (req, res, next) => {
     .catch(next);
 });
 
-// ----- Post ----- //
+// --------------- Post --------------- //
 
 router.post('/:id/accept', (req, res, next) => {
   const eventId = req.params.id;
@@ -260,6 +262,21 @@ router.post('/:id/accept', (req, res, next) => {
 
           return res.redirect(`/events/${eventId}`);
         });
+    })
+    .catch(next);
+});
+
+// ------------------------------ IGNORE EVENT ------------------------------ //
+
+// --------------- Post --------------- //
+
+router.post('/:id/ignore', (req, res, next) => {
+  const eventId = req.params.id;
+  const userId = req.body.user;
+
+  Event.findByIdAndUpdate(eventId, { $pull: { guests: userId } })
+    .then((result) => {
+      return res.redirect('/events');
     })
     .catch(next);
 });

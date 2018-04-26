@@ -70,7 +70,10 @@
         <button type="submit" class="btn btn-cancel">Cancel</button>
       </form>
     <% } else { %>
-      <a href="/" class="btn btn-ignore">Ignore</a>
+      <form method="POST" action="/events/<%= event._id %>/ignore">
+        <input type="hidden" value="<%= currentUser._id %>" name="user" />
+        <button type="submit" class="btn btn-ignore">Ignore Event</button>
+      </form>
     <% }; %>
   </div>
 </div>
