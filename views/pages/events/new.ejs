@@ -8,10 +8,10 @@
       <textarea type="text" placeholder="Description" name="description"></textarea>
     </div>
     <div class="field">
-      <input type="text" placeholder="Location" name="location" class="location"/>
-      <input hidden type="text" name="latitude" placeholder="Latitude" value="">
-      <input hidden type="text" name="longitude" placeholder="Longitude" value="">
-      <div id="map"></div>
+      <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />
+      <input type="hidden" id="address" name="address" />
+      <input type="hidden" id="cityLat" name="latitude" />
+      <input type="hidden" id="cityLng" name="longitude" />
     </div>
     <div class="field date-time-field">
       <input type="date" placeholder="Date" name="date" />
@@ -28,31 +28,49 @@
 </div>
 
 <!-- @TODO extract the script -->
-<script>
-  var inputs = document.querySelectorAll( '.inputfile' );
-  Array.prototype.forEach.call( inputs, function( input )
-  {
-    var label	 = input.nextElementSibling,
-      labelVal = label.innerHTML;
-
-    input.addEventListener( 'change', function( e )
-    {
-      var fileName = '';
-      if( this.files && this.files.length > 1 )
-        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-      else
-        fileName = e.target.value.split( '\\' ).pop();
-      
-      if( fileName )
-        label.innerHTML = fileName;
-      else
-        label.innerHTML = labelVal;
-    });
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= env.process.GOOGLE_API_KEY %>&callback=initMap" async defer></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= env.process.GOOGLE_API_KEY %>&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_API_KEY %>&libraries=places"></script>
+
+<script>
+window.addEventListener('load', () => {
+
+    var input = document.getElementById('searchTextField');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log(place)
+      document.getElementById('address').value = place.formatted_address;
+      document.getElementById('cityLat').value = place.geometry.location.lat();
+      document.getElementById('cityLng').value = place.geometry.location.lng();
+      //alert("This function is working!");
+      //alert(place.name);
+      // alert(place.address_components[0].long_name);
+
+    });
+
+})
+
+  // var inputs = document.querySelectorAll( '.inputfile' );
+  // Array.prototype.forEach.call( inputs, function( input )
+  // {
+  //   var label	 = input.nextElementSibling,
+  //     labelVal = label.innerHTML;
+
+  //   input.addEventListener( 'change', function( e )
+  //   {
+  //     var fileName = '';
+  //     if( this.files && this.files.length > 1 )
+  //       fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+  //     else
+  //       fileName = e.target.value.split( '\\' ).pop();
+      
+  //     if( fileName )
+  //       label.innerHTML = fileName;
+  //     else
+  //       label.innerHTML = labelVal;
+  //   });
+  // });
+</script>
 
 
 <script src="/javascripts/main.js"></script>

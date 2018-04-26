@@ -54,6 +54,7 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
 
   let location = {
     type: 'Point',
+    address: req.body.address,
     coordinates: [req.body.longitude, req.body.latitude]
   };
 

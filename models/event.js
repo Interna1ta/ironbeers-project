@@ -24,6 +24,7 @@ const eventSchema = new Schema({
     ref: 'User'
   }],
   location: {
+    address: String,
     type: { type: String },
     coordinates: [Number]
   },
