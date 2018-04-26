@@ -20,16 +20,14 @@ router.get('/', (req, res, next) => {
   };
   const user = req.session.user;
 
-  // @ASK_ANDRE
-  // Event.findOne({ guests: { $elemMatch: {_id: user._id} } })
-  //   .then((result) => {
-  //     console.log(result);
-  //   });
+  const promiseFindGuest = Event.find({ guests: { $in: [user._id] }, active: true }).populate('guests');
+  const promiseFindOwner = Event.find({ owner: user, active: true }).populate('owner');
 
-  Event.find({ owner: user, active: true }).sort([['date', 1]]).populate('owner')
+  Promise.all([promiseFindGuest, promiseFindOwner])
     .then((result) => {
+      const events = result[0].concat(result[1]);
       const data = {
-        events: result,
+        events,
         messages: req.flash('message-name')
       };
       res.render('pages/events/index', data);
