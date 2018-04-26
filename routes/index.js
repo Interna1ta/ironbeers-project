@@ -1,10 +1,11 @@
 'use strict';
 
-// -- require npm packages
+// ------------------------------ PACKAGES REQUIRED ------------------------------ //
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
+// ------------------------------ HOMEPAGE ------------------------------ //
+// --------------- GET --------------- //
 router.get('/', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/events');

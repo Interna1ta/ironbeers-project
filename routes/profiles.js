@@ -1,12 +1,13 @@
 'use strict';
 
-// -- require npm packages
+// ------------------------------ MODELS AND PACKAGES REQUIRED ------------------------------ //
 const express = require('express');
 const User = require('../models/user');
 const router = express.Router();
 const uploadCloud = require('../config/cloudinary.js');
 
-// ----- Get ----- //
+// ------------------------------ PROFILE SHOW ------------------------------ //
+// --------------- GET --------------- //
 router.get('/profile', (req, res, next) => {
   const userId = req.session.user._id;
   User.findById(userId)
@@ -19,7 +20,8 @@ router.get('/profile', (req, res, next) => {
     .catch(next);
 });
 
-// ----- Get ----- //
+// ------------------------------ PROFILE UPDATE ------------------------------ //
+// --------------- GET --------------- //
 router.get('/update', (req, res, next) => {
   const userId = req.session.user._id;
   User.findById(userId)
@@ -32,7 +34,7 @@ router.get('/update', (req, res, next) => {
     .catch(next);
 });
 
-// ----- Post ----- //
+// --------------- POST --------------- //
 router.post('/update', uploadCloud.single('imgPath'), (req, res, next) => {
   const userId = req.session.user._id;
   let data;

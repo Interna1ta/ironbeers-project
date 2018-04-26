@@ -1,16 +1,14 @@
 'use strict';
 
-// -- require npm packages
+// ------------------------------ MODELS AND PACKAGES REQUIRED ------------------------------ //
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-
 const router = express.Router();
 const bcryptSalt = 10;
 
-// ---------- SIGN UP ---------- //
-
-// ----- Get ----- //
+// ------------------------------ SIGN UP ------------------------------ //
+// --------------- GET --------------- //
 router.get('/signup', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/events');
@@ -22,7 +20,7 @@ router.get('/signup', (req, res, next) => {
   res.render('pages/users/signup', data);
 });
 
-// ----- Post ----- //
+// --------------- POST --------------- //
 router.post('/signup', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/events');
@@ -65,9 +63,8 @@ router.post('/signup', (req, res, next) => {
     .catch(next);
 });
 
-// ---------- LOGIN ---------- //
-
-// ----- Get ----- //
+// ------------------------------ LOG IN ------------------------------ //
+// --------------- GET --------------- //
 router.get('/login', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/events');
@@ -78,7 +75,7 @@ router.get('/login', (req, res, next) => {
   res.render('pages/users/login', data);
 });
 
-// ----- Post ----- //
+// --------------- POST --------------- //
 router.post('/login', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/events');
@@ -89,7 +86,6 @@ router.post('/login', (req, res, next) => {
   User.findOne({ email: email })
     .then(result => {
       if (!result || !bcrypt.compareSync(password, result.password)) {
-        // @todo send flash 'login'
         req.flash('message-name', 'Email or Password are incorrect');
         return res.redirect('/users/login');
       }
@@ -100,8 +96,8 @@ router.post('/login', (req, res, next) => {
     .catch(next);
 });
 
-// ---------- LOGOUT ---------- //
-
+// ------------------------------ LOG OUT ------------------------------ //
+// --------------- POST --------------- //
 router.post('/logout', (req, res, next) => {
   console.log(req.session);
   delete req.session.user;

@@ -12,9 +12,7 @@
   </div>
   <div class="edit-buttons">
     <% if (user._id == currentUser._id) { %>
-      <form method="GET" action="/profiles/update">
-        <button class="btn btn-primary">Edit</button>
-      </form>
+      <a href="/profiles/update" class="btn btn-primary">Edit</a>
       <form method="POST" action="/users/logout">
         <button src="/" class="btn btn-primary">Logout</button>
       </form>

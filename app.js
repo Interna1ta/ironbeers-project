@@ -1,7 +1,8 @@
 'use strict';
+
 require('dotenv').config();
 
-// -- require npm packages
+// ------------------------------ NPM PACKAGES ------------------------------ //
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -13,20 +14,20 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const cloudinary = require('cloudinary').v2;
 
-// -- require your own modules (router, models)
+// ------------------------------ SETUP ROUTES ------------------------------ //
 const index = require('./routes/index');
 const users = require('./routes/users');
 const events = require('./routes/events');
 const profiles = require('./routes/profiles');
 
-// -- setup the app
+// ------------------------------ SETUP THE APP ------------------------------ //
 const app = express();
 
-// view engine setup
+// ------------------------------ VIEW ENGINE SETUP ------------------------------ //
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// ---------- COOKIES AND SESSIONS ----------
+// ------------------------------ COOKIES AND SESSIONS ------------------------------ //
 app.use(session({
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
@@ -40,10 +41,10 @@ app.use(session({
   }
 }));
 
-// ---------- CONNECT THE DATABASE ----------
+// ------------------------------ CONNECT THE DATABASE ------------------------------ //
 mongoose.connect(process.env.MONGODB_URI);
 
-// -- middlewares
+// ------------------------------ MIDDLEWARES ------------------------------ //
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -58,14 +59,13 @@ app.use((req, res, next) => {
 });
 app.use(flash()); // Flash messages
 
-// ---------- ROUTES ----------
+// ------------------------------ ROUTES ------------------------------ //
 app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
 app.use('/profiles', profiles);
 
-// -- 404 and error handler
-
+// ------------------------------ 404 AND 500 ERROR HANDLER ------------------------------ //
 // NOTE: requires a views/not-found.ejs template
 app.use((req, res, next) => {
   res.status(404);
