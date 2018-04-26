@@ -18,12 +18,16 @@ router.get('/', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
-  const owner = req.session.user;
+  const user = req.session.user;
 
-  Event.find({ owner: owner, active: true }).populate('owner', 'email -_id')
+  const promiseFindGuest = Event.find({ guests: { $in: [user._id] }, active: true }).populate('guests');
+  const promiseFindOwner = Event.find({ owner: user, active: true }).populate('owner');
+
+  Promise.all([promiseFindGuest, promiseFindOwner])
     .then((result) => {
+      const events = result[0].concat(result[1]);
       const data = {
-        events: result,
+        events,
         messages: req.flash('message-name')
       };
       res.render('pages/events/index', data);
@@ -74,7 +78,7 @@ router.get('/:id', (req, res, next) => {
     return res.redirect('/');
   };
   const eventId = req.params.id;
-  Event.findById(eventId).populate('owner')
+  Event.findById(eventId).populate('owner').populate('guests')
     .then((result) => {
       const data = {
         event: result
@@ -216,9 +220,6 @@ router.get('/:id/accept', (req, res, next) => {
 
 router.post('/:id/accept', (req, res, next) => {
   const eventId = req.params.id;
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
 
   const email = req.body.email;
   const password = req.body.password;
