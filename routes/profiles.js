@@ -41,19 +41,17 @@ router.post('/update', uploadCloud.single('imgPath'), (req, res, next) => {
 
   if (req.file) {
     data = {
-      email: req.body.email,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       imgPath: req.file.url,
       imgName: req.file.originalname
     };
-  } else {
-    data = {
-      email: req.body.email,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName
-    };
-  }
+  };
+
+  data = {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName
+  };
+
   User.findByIdAndUpdate(userId, { $set: { ...data } }, {new: true})
     .then((result) => {
       res.redirect(`/profiles/profile`);
