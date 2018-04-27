@@ -27,7 +27,7 @@
       <% }; %>
       <div class="btn-holder">
         <% if (event.owner._id == currentUser._id) { %>
-          <a href="/events/<%= event._id %>/edit" class="btn btn-edit">Edit</a>
+          <a href="/events/<%= event._id %>/invite" class="btn btn-edit">Invite</a>
           <form method="POST" action="/events/<%= event._id %>/cancel" class="form-cancel">
             <button type="submit" class="btn btn-cancel">Cancel</button>
           </form>

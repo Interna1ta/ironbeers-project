@@ -6,7 +6,7 @@
       <img src="/images/avatar.png" class="avatar" alt="">
     <% }; %>
     <% if (user.lastName && user.firstName) { %>
-      <p class="name"><%= user.lastName %>, <%= user.firstName %></p>
+      <p class="name"><%= user.firstName %> <%= user.lastName %></p>
     <% }; %>
     <p class="email"><%= user.email %></p>
   </div>
