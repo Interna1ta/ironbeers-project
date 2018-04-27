@@ -322,6 +322,7 @@ p {
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 10px;
+  margin-right: 20px;
 }
 
 .guest-container .guest-card img {
@@ -366,10 +367,6 @@ p {
 
   .details-container .card-list {
     justify-content: flex-start;
-  }
-
-  .details-container .guest-card {
-    margin-right: 20px;
   }
 }
 
