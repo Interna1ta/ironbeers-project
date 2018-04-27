@@ -10,7 +10,6 @@ Array.prototype.forEach.call(inputs, function (input) {
     } else {
       fileName = e.target.value.split('\\').pop();
     };
-
     if (fileName) {
       label.innerHTML = fileName;
     } else {

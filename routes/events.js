@@ -192,7 +192,7 @@ router.get('/:id/accept', (req, res, next) => {
 });
 
 // --------------- POST --------------- //
-router.post('/:id/accept', middlewaresAuth.requireAnonymous, (req, res, next) => {
+router.post('/:id/accept', (req, res, next) => {
   const eventId = req.params.id;
   const email = req.body.email;
   const password = req.body.password;
