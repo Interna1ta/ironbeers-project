@@ -12,13 +12,13 @@
       </div>
       <img src="https://maps.googleapis.com/maps/api/staticmap?center=
         <%= event.location.coordinates[1] %>,
-          <%= event.location.coordinates[0] %>&zoom=16&size=1600x400&key=
+          <%= event.location.coordinates[0] %>&zoom=16&size=1600x300&key=
             <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
       <div class="location">
-        <p><%= event.location.address %></p>
+        <h5><%= event.location.address %></h5>
       </div>
       <div class="title">
-        <p><%= event.title %></p>
+        <h3><%= event.title %></h3>
       </div>
       <div class="guests">
         <p><%= event.guests.length %> Ironhackers</p>

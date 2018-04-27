@@ -1,48 +1,47 @@
 <div class="container guest-container">
-  <div class="date-time">
-    <h3 class="date"><%= event.date %></h3>
-    <h3 class="time"><%= event.time %></h3>
-  </div>
-  <h2 class="title"><%= event.title %></h2>
-  <div class="owner">
-    <% if (event.owner.imgPath) { %>
-      <img src="<%= event.owner.imgPath %>" class="avatar" alt="">
-    <% } else { %>
-      <img src="/images/avatar.png" class="avatar" alt="">
-    <% }; %>
-    <div class="info">
-      <h4>Organizer</h4>
-      <% if (event.owner.firstName && event.owner.lastName) { %>
-        <h4><%= event.owner.lastName %>, <%= event.owner.firstName %></h4>
-        <h4><%= event.owner.email %></h4>
+  <div class="header">
+    <div class="title">
+      <h5><%= event.date %></h5>
+      <h2><%= event.title %></h2>
+      <div class="owner">
+        <% if (event.owner.imgPath) { %>
+          <img src="<%= event.owner.imgPath %>" class="avatar" alt="">
+        <% } else { %>
+          <img src="/images/avatar.png" class="avatar" alt="">
+        <% }; %>
+        <div class="owner-details">
+          <% if (event.owner.firstName && event.owner.lastName) { %>
+            <p>Organizer: <%= event.owner.firstName %> <%= event.owner.lastName %></p>
+            <p><%= event.owner.email %></p>
+          <% } else { %>
+            <p><%= event.owner.email %></p>
+          <% }; %>
+        </div>
+      </div>
+    </div>
+    <div class="guests">
+      <% if (event.guests.length === 0) { %>
+        <p>Nobody answer yet</p>
       <% } else { %>
-        <h4><%= event.owner.email %></h4>
+        <p><%= event.guests.length %> Ironhackers attending</p>
       <% }; %>
+      <div class="btn-holder">
+        <% if (event.owner._id == currentUser._id) { %>
+          <a href="/events/<%= event._id %>/edit" class="btn btn-edit">Edit</a>
+          <form method="POST" action="/events/<%= event._id %>/cancel" class="form-cancel">
+            <button type="submit" class="btn btn-cancel">Cancel</button>
+          </form>
+        <% } else { %>
+          <form method="POST" action="/events/<%= event._id %>/ignore" class="form-ignore">
+            <input type="hidden" value="<%= currentUser._id %>" name="user" />
+            <button type="submit" class="btn btn-ignore">Ignore Event</button>
+          </form>
+        <% }; %>
+      </div>
     </div>
   </div>
-  <div class="guests">
-      <a href="/events/<%= event._id %>/invite"><img src="/images/UserAdd.svg" alt="add" class="icon-btn"></a>
-    <% if (event.guests.length === 0) { %>
-      <h4>There are no guests yet</h4>
-    <% } else { %>
-      <div class="guests-card">
-        <h4><%= event.guests.length %> Ironhackers</h4>
-        <% event.guests.forEach((guest) => { %>
-          <% if (guest.imgPath) { %>
-          <img src="<%= guest.imgPath %>" alt="avatar" class="avatar-sm">
-          <% } else { %>
-          <img src="/images/avatar.png" alt="avatar" class="avatar-sm">
-          <% } %>
-        <% }); %>
-      </div>
-    <% }; %>
-  </div>
-  <div class="details">
-    <h4>Details</h4>
-    <p><%= event.description %></p>
-  </div>
   <div class="location">
-    <h4>When & Where</h4>
+    <h3>When & Where</h3>
     <div class="date-holder">
       <img src="/images/Date.svg" alt="">
       <div class="date">
@@ -56,25 +55,52 @@
     <div class="map-container">
       <p id="marker">🍻</p>
       <img src="https://maps.googleapis.com/maps/api/staticmap?center=
-        <%= event.location.coordinates[1] %>,
-          <%= event.location.coordinates[0] %>&zoom=16&size=1600x400&key=
-            <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
+      <%= event.location.coordinates[1] %>,
+      <%= event.location.coordinates[0] %>&zoom=16&size=1600x300&key=
+      <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
     </div>
   </div>
-  <div class="pictures">
-  </div>
-  <div class="button-holder">
-    <% if (event.owner._id == currentUser._id) { %>
-      <a href="/events/<%= event._id %>/edit" class="btn btn-edit">Edit</a>
-      <form method="POST" action="/events/<%= event._id %>/cancel">
-        <button type="submit" class="btn btn-cancel">Cancel</button>
-      </form>
-    <% } else { %>
-      <form method="POST" action="/events/<%= event._id %>/ignore">
-        <input type="hidden" value="<%= currentUser._id %>" name="user" />
-        <button type="submit" class="btn btn-ignore">Ignore Event</button>
-      </form>
-    <% }; %>
+  <div class="details">
+    <div class="detail-text">
+      <h3>Details</h3>
+      <p><%= event.description %></p>
+    </div>
+    <div class="guests-cards">
+      <h3>Assistants</h3>
+      <div class="card-list">
+        <% if (event.guests.length === 0) { %>
+          <div class="guest-card">
+            <% if (event.owner.imgPath) { %>
+              <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
+            <% } else { %>
+              <img src="/images/avatar.png" class="avatar-sm" alt="">
+            <% }; %>
+            <p><%= event.owner.firstName %></p>
+          </div>
+        <% } else { %>
+          <div class="guest-card">
+            <% if (event.owner.imgPath) { %>
+              <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
+            <% } else { %>
+              <img src="/images/avatar.png" class="avatar-sm" alt="">
+            <% }; %>
+            <p><%= event.owner.firstName %></p>
+          </div>
+          <% event.guests.forEach((guest) => {%>
+            <div class="guest-card">
+              <% if (guest.imgPath) { %>
+                <img src="<%= guest.imgPath %>" class="avatar-sm" alt="">
+              <% } else { %>
+                <img src="/images/avatar.png" class="avatar-sm" alt="">
+              <% }; %>
+              <p><%= guest.firstName %></p>
+            </div>
+          <% }); %>
+        <% }; %>
+      </div>
+    </div>
+    <div class="pictures">
+    </div>
   </div>
 </div>
 

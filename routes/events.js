@@ -5,6 +5,7 @@ const express = require('express');
 const Event = require('../models/event');
 const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
+const middlewaresAuth = require('../middlewares/auth');
 const moment = require('moment');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
@@ -36,19 +37,12 @@ router.get('/', (req, res, next) => {
 
 // ------------------------------ CREATE ------------------------------ //
 // --------------- GET --------------- //
-router.get('/create', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.get('/create', middlewaresAuth.requireAnonymous, (req, res, next) => {
   res.render('pages/events/new');
 });
 
 // --------------- POST --------------- //
-router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
-
+router.post('/', middlewaresAuth.requireAnonymous, uploadCloud.single('imgPath'), (req, res, next) => {
   let location = {
     type: 'Point',
     address: req.body.address,
@@ -72,10 +66,7 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
 
 // ------------------------------ SHOW EVENT ------------------------------ //
 // --------------- GET --------------- //
-router.get('/:id', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.get('/:id', middlewaresAuth.requireAnonymous, (req, res, next) => {
   const eventId = req.params.id;
   Event.findById(eventId).populate('owner').populate('guests')
     .then((result) => {
@@ -89,10 +80,7 @@ router.get('/:id', (req, res, next) => {
 
 // ------------------------------ UPDATE EVENT ------------------------------ //
 // --------------- GET --------------- //
-router.get('/:id/edit', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.get('/:id/edit', middlewaresAuth.requireAnonymous, (req, res, next) => {
   const eventId = req.params.id;
   Event.findById(eventId)
     .then((result) => {
@@ -105,10 +93,7 @@ router.get('/:id/edit', (req, res, next) => {
 });
 
 // --------------- POST --------------- //
-router.post('/:id', uploadCloud.single('imgPath'), (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.post('/:id', middlewaresAuth.requireAnonymous, uploadCloud.single('imgPath'), (req, res, next) => {
   const eventId = req.params.id;
   let data;
 
@@ -140,10 +125,7 @@ router.post('/:id', uploadCloud.single('imgPath'), (req, res, next) => {
 
 // ------------------------------ CANCEL EVENT ------------------------------ //
 // --------------- POST --------------- //
-router.post('/:id/cancel', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.post('/:id/cancel', middlewaresAuth.requireAnonymous, (req, res, next) => {
   const eventId = req.params.id;
   const data = {
     active: false
@@ -157,10 +139,7 @@ router.post('/:id/cancel', (req, res, next) => {
 
 // ------------------------------ INVITE EVENT ------------------------------ //
 // --------------- GET --------------- //
-router.get('/:id/invite', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  };
+router.get('/:id/invite', middlewaresAuth.requireAnonymous, (req, res, next) => {
   const eventId = req.params.id;
   Event.findById(eventId)
     .then((result) => {
