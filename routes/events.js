@@ -214,8 +214,11 @@ router.get('/:id/accept', (req, res, next) => {
 
 // --------------- POST --------------- //
 router.post('/:id/accept', (req, res, next) => {
-  const eventId = req.params.id;
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
 
+  const eventId = req.params.id;
   const email = req.body.email;
   const password = req.body.password;
 
