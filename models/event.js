@@ -26,7 +26,9 @@ const eventSchema = new Schema({
   location: {
     address: String,
     type: { type: String },
-    coordinates: [Number]
+    coordinates: [Number],
+    name: String,
+    vicinity: String
   },
   date: {
     type: String

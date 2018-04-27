@@ -46,7 +46,9 @@ router.post('/', middlewaresAuth.requireAnonymous, uploadCloud.single('imgPath')
   let location = {
     type: 'Point',
     address: req.body.address,
-    coordinates: [req.body.longitude, req.body.latitude]
+    coordinates: [req.body.longitude, req.body.latitude],
+    name: req.body.name,
+    vicinity: req.body.vicinity
   };
 
   const event = new Event(req.body);

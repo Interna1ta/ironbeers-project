@@ -13,7 +13,7 @@
       <div class="information">
         <h2><%= event.title %></h2>
         <h5>Organizer: <span><%= event.owner.firstName %> <%= event.owner.lastName %></span></h5>
-        <h5>Location: <span><%= event.location.address %></span></h5>
+        <h5>Location: <span><%= event.location.name %>, <%= event.location.vicinity %></span></h5>
       </div>
       <div class="guests">
         <p><%= event.guests.length %> Ironhackers</p>
