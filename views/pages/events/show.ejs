@@ -23,7 +23,7 @@
       <% if (event.guests.length === 0) { %>
         <p>Nobody answer yet</p>
       <% } else { %>
-        <p><%= event.guests.length %> Ironhackers attending</p>
+        <p><%= event.guests.length + 1 %> Ironhackers attending</p>
       <% }; %>
       <div class="btn-holder">
         <% if (event.owner._id == currentUser._id) { %>
