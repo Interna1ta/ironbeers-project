@@ -4,16 +4,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const middlewaresAuth = require('../middlewares/auth');
 const router = express.Router();
 const bcryptSalt = 10;
 
 // ------------------------------ SIGN UP ------------------------------ //
 // --------------- GET --------------- //
-router.get('/signup', (req, res, next) => {
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
-
+router.get('/signup', middlewaresAuth.requireUserSession, (req, res, next) => {
   const data = {
     messages: req.flash('message-name')
   };
@@ -21,11 +18,7 @@ router.get('/signup', (req, res, next) => {
 });
 
 // --------------- POST --------------- //
-router.post('/signup', (req, res, next) => {
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
-
+router.post('/signup', middlewaresAuth.requireUserSession, (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -65,10 +58,7 @@ router.post('/signup', (req, res, next) => {
 
 // ------------------------------ LOG IN ------------------------------ //
 // --------------- GET --------------- //
-router.get('/login', (req, res, next) => {
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
+router.get('/login', middlewaresAuth.requireUserSession, (req, res, next) => {
   const data = {
     messages: req.flash('message-name')
   };
@@ -76,10 +66,7 @@ router.get('/login', (req, res, next) => {
 });
 
 // --------------- POST --------------- //
-router.post('/login', (req, res, next) => {
-  if (req.session.user) {
-    return res.redirect('/events');
-  };
+router.post('/login', middlewaresAuth.requireUserSession, (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -99,7 +86,6 @@ router.post('/login', (req, res, next) => {
 // ------------------------------ LOG OUT ------------------------------ //
 // --------------- POST --------------- //
 router.post('/logout', (req, res, next) => {
-  console.log(req.session);
   delete req.session.user;
   delete req.session.flash;
   return res.redirect('/');
