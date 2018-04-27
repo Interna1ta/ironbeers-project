@@ -58,6 +58,10 @@ p {
   margin: 0;
 }
 
+/* @media (min-width: 768px) {
+  
+} */
+
 /* ----- HOMEPAGE ----- */
 
 .main-title {
@@ -123,6 +127,10 @@ p {
 #navbar .navbar-link img{
   width: 30px;
 }
+
+/* @media (min-width: 768px) {
+  
+} */
 
 /* ----- BUTTONS ----- */
 
@@ -502,7 +510,6 @@ p {
   background-color: #1487fe;
   color: white;
 }
-
 
 .form-container .link {
   display: flex;
