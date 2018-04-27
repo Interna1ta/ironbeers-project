@@ -40,7 +40,6 @@ router.get('/create', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/');
   };
-  // @todo read flash const data = { messages: req.flash('welcome') }
   res.render('pages/events/new');
 });
 
@@ -59,8 +58,10 @@ router.post('/', uploadCloud.single('imgPath'), (req, res, next) => {
   const event = new Event(req.body);
   event.owner = req.session.user;
   event.date = moment(req.body.date).format('dddd[, ]MMMM Do');
-  event.imgPath = req.file.url;
-  event.imgName = req.file.name;
+  if (req.file) {
+    event.imgPath = req.file.url;
+    event.imgName = req.file.name;
+  };
   event.location = location;
   event.save()
     .then(() => {
@@ -213,8 +214,11 @@ router.get('/:id/accept', (req, res, next) => {
 
 // --------------- POST --------------- //
 router.post('/:id/accept', (req, res, next) => {
-  const eventId = req.params.id;
+  if (!req.session.user) {
+    return res.redirect('/');
+  };
 
+  const eventId = req.params.id;
   const email = req.body.email;
   const password = req.body.password;
 
