@@ -40,66 +40,68 @@
       </div>
     </div>
   </div>
-  <div class="location">
-    <h3>When & Where</h3>
-    <div class="date-holder">
-      <img src="/images/Date.svg" alt="">
-      <div class="date">
-        <p><%= event.date %> at <%= event.time %> </p>
+  <div class="details-container">
+    <div class="location">
+      <h3>When & Where</h3>
+      <div class="date-holder">
+        <img src="/images/Date.svg" alt="">
+        <div class="date">
+          <p><%= event.date %> at <%= event.time %> </p>
+        </div>
+      </div>
+      <div class="location-holder">
+        <img src="/images/Location.svg" alt="">
+        <p><%= event.location.address %></p>
+      </div>
+      <div class="map-container">
+        <p id="marker">🍻</p>
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=
+        <%= event.location.coordinates[1] %>,
+        <%= event.location.coordinates[0] %>&zoom=16&size=1600x300&key=
+        <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
       </div>
     </div>
-    <div class="location-holder">
-      <img src="/images/Location.svg" alt="">
-      <p><%= event.location.address %></p>
-    </div>
-    <div class="map-container">
-      <p id="marker">🍻</p>
-      <img src="https://maps.googleapis.com/maps/api/staticmap?center=
-      <%= event.location.coordinates[1] %>,
-      <%= event.location.coordinates[0] %>&zoom=16&size=1600x300&key=
-      <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
-    </div>
-  </div>
-  <div class="details">
-    <div class="detail-text">
-      <h3>Details</h3>
-      <p><%= event.description %></p>
-    </div>
-    <div class="guests-cards">
-      <h3>Assistants</h3>
-      <div class="card-list">
-        <% if (event.guests.length === 0) { %>
-          <div class="guest-card">
-            <% if (event.owner.imgPath) { %>
-              <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
-            <% } else { %>
-              <img src="/images/avatar.png" class="avatar-sm" alt="">
-            <% }; %>
-            <p><%= event.owner.firstName %></p>
-          </div>
-        <% } else { %>
-          <div class="guest-card">
-            <% if (event.owner.imgPath) { %>
-              <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
-            <% } else { %>
-              <img src="/images/avatar.png" class="avatar-sm" alt="">
-            <% }; %>
-            <p><%= event.owner.firstName %></p>
-          </div>
-          <% event.guests.forEach((guest) => {%>
+    <div class="details">
+      <div class="detail-text">
+        <h3>Details</h3>
+        <p><%= event.description %></p>
+      </div>
+      <div class="guests-cards">
+        <h3>Assistants</h3>
+        <div class="card-list">
+          <% if (event.guests.length === 0) { %>
             <div class="guest-card">
-              <% if (guest.imgPath) { %>
-                <img src="<%= guest.imgPath %>" class="avatar-sm" alt="">
+              <% if (event.owner.imgPath) { %>
+                <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
               <% } else { %>
                 <img src="/images/avatar.png" class="avatar-sm" alt="">
               <% }; %>
-              <p><%= guest.firstName %></p>
+              <p><%= event.owner.firstName %></p>
             </div>
-          <% }); %>
-        <% }; %>
+          <% } else { %>
+            <div class="guest-card">
+              <% if (event.owner.imgPath) { %>
+                <img src="<%= event.owner.imgPath %>" class="avatar-sm" alt="">
+              <% } else { %>
+                <img src="/images/avatar.png" class="avatar-sm" alt="">
+              <% }; %>
+              <p><%= event.owner.firstName %></p>
+            </div>
+            <% event.guests.forEach((guest) => {%>
+              <div class="guest-card">
+                <% if (guest.imgPath) { %>
+                  <img src="<%= guest.imgPath %>" class="avatar-sm" alt="">
+                <% } else { %>
+                  <img src="/images/avatar.png" class="avatar-sm" alt="">
+                <% }; %>
+                <p><%= guest.firstName %></p>
+              </div>
+            <% }); %>
+          <% }; %>
+        </div>
       </div>
-    </div>
-    <div class="pictures">
+      <div class="pictures">
+      </div>
     </div>
   </div>
 </div>

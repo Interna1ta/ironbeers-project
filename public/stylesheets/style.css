@@ -210,6 +210,7 @@ p {
   flex-direction: column;
 }
 
+
 .guest-container .avatar {
   width: 50px;
   height: 50px;
@@ -221,8 +222,7 @@ p {
 .guest-container .guests {
   width: 100%;
   text-align: center;
-  margin-bottom: 30px;
-  min-width: 100%;  
+  margin-bottom: 30px; 
   padding: 14px 0px 0px 0px; 
   border-top: 1px solid #BDBDBD; 
   border-bottom: 1px solid #BDBDBD;
@@ -260,7 +260,6 @@ p {
 }
 
 .guest-container .location {
-  min-width: 100%;
   margin-bottom: 30px;
 }
 
@@ -331,14 +330,56 @@ p {
   height: 40px;
 }
 
+@media (min-width: 768px) {
+  .guest-container .header {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+  }
+
+  .guest-container .title {
+    flex: 1 0 70%;
+
+  }
+
+  .guest-container .guests {
+    flex: 1 0 30%;
+    border: none;
+    padding: 10px;
+  }
+
+  .details-container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .details-container .details {
+    flex: 1 0 70%;
+    padding-right: 100px;
+  }
+
+  .details-container .location {
+    flex: 1 0 30%;
+  }
+
+  .details-container .card-list {
+    justify-content: flex-start;
+  }
+
+  .details-container .guest-card {
+    margin-right: 20px;
+  }
+}
+
 
 /* -------- CARD --------- */
 
 .event-card {
   background-color: white;
   border-radius: 6px;
-  padding-top: 10px;
-  margin-bottom: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
   position: relative;
   box-shadow: 0px 0px 6px lightgray;
 }
@@ -352,25 +393,19 @@ p {
   margin-bottom: 10px;
 }
 
-.event-card img {
-  width: 100%;
+.event-card .information {
+  padding: 10px 10px;
+  border-top: 1px solid #F2F2F2;
+  border-bottom: 1px solid #F2F2F2;
+  padding-bottom: 15px;
 }
 
-.event-card .location {
-  text-align: center;
-  padding-top: 10px;
+.information span {
+  color: black;
 }
-
-.event-card .title {
-  text-align: center;
-  font-size: 25px;
-  margin: 20px 0px;
-}
-
 .event-card .guests {
   text-align: center;
-  padding: 10px 0px;
-  border-top: 1px solid #F2F2F2;
+  padding-top: 10px;
 }
 
 .event-card .link {
@@ -606,7 +641,6 @@ p {
   border-radius: 20px;
 }
 
-
 textarea {
   resize: none;
 }
@@ -625,3 +659,4 @@ textarea {
   background-color: white;
   border-radius: 50%;
 }
+

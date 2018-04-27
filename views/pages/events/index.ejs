@@ -10,15 +10,10 @@
         <p><%= event.date %></p>
         <p><%= event.time %></p>
       </div>
-      <img src="https://maps.googleapis.com/maps/api/staticmap?center=
-        <%= event.location.coordinates[1] %>,
-          <%= event.location.coordinates[0] %>&zoom=16&size=1600x300&key=
-            <%= process.env.STATIC_GOOGLE_API_KEY %>" alt="" class="mapa">
-      <div class="location">
-        <h5><%= event.location.address %></h5>
-      </div>
-      <div class="title">
-        <h3><%= event.title %></h3>
+      <div class="information">
+        <h2><%= event.title %></h2>
+        <h5>Organizer: <span><%= event.owner.firstName %> <%= event.owner.lastName %></span></h5>
+        <h5>Location: <span><%= event.location.address %></span></h5>
       </div>
       <div class="guests">
         <p><%= event.guests.length %> Ironhackers</p>
