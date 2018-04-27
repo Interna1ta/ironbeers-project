@@ -66,18 +66,18 @@ app.use('/events', events);
 app.use('/profiles', profiles);
 
 // ------------------------------ 404 AND 500 ERROR HANDLER ------------------------------ //
-// NOTE: requires a views/not-found.ejs template
+// NOTE: Requires a views/not-found.ejs template
 app.use((req, res, next) => {
   res.status(404);
   res.render('pages/errors/404');
 });
 
-// NOTE: requires a views/error.ejs template
+//  NOTE: Requires a views/error.ejs template
 app.use((err, req, res, next) => {
   // always log the error
   console.error('ERROR', req.method, req.path, err);
 
-  // only render if the error ocurred before sending the response
+  // NOTE¡: This only render if the error ocurred before sending the response
   if (!res.headersSent) {
     res.status(500);
     res.render('pages/errors/500');
