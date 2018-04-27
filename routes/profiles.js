@@ -39,7 +39,6 @@ router.post('/update', uploadCloud.single('imgPath'), (req, res, next) => {
   const userId = req.session.user._id;
   let data = {};
 
-  console.log(req.file);
   if (req.file) {
     data.imgPath = req.file.url;
     data.imgName = req.file.originalname;

@@ -95,27 +95,21 @@ router.get('/:id/edit', middlewaresAuth.requireAnonymous, (req, res, next) => {
 // --------------- POST --------------- //
 router.post('/:id', middlewaresAuth.requireAnonymous, uploadCloud.single('imgPath'), (req, res, next) => {
   const eventId = req.params.id;
-  let data;
+  let data = {};
 
   if (req.file) {
-    data = {
-      title: req.body.title,
-      description: req.body.description,
-      location: req.body.location,
-      date: req.body.date,
-      time: req.body.time,
-      imgPath: req.file.url,
-      imgName: req.file.originalname
-    };
-  } else {
-    data = {
-      title: req.body.title,
-      description: req.body.description,
-      location: req.body.location,
-      date: req.body.date,
-      time: req.body.time
-    };
+    data.imgPath = req.file.url;
+    data.imgName = req.file.originalname;
   }
+  data.email = req.body.email;
+  data.firstName = req.body.firstName;
+  data.lastName = req.body.lastName;
+  data.title = req.body.title;
+  data.description = req.body.description;
+  data.location = req.body.location;
+  data.date = req.body.date;
+  data.time = req.body.time;
+
   Event.findOneAndUpdate(eventId, { $set: { ...data } })
     .then(() => {
       res.redirect(`/events/${eventId}`);
