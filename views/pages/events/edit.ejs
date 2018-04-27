@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="form-container container">
   <h2 class="form-title">Edit Event</h2>
   <form method="POST" action="/events/<%= event._id %>" enctype="multipart/form-data">
     <div class="field">
@@ -8,7 +8,7 @@
       <textarea type="text" placeholder="Description" name="description"><%= event.description %></textarea>
     </div>
     <div class="field">
-      <input type="text" placeholder="Location" value="<%= event.location.address %>" name="location" />
+      <input type="text" placeholder="Location" value="<%= event.location %>" name="location" />
     </div>
     <div class="field date-time-field">
       <input type="date" placeholder="Date" value="<%= event.date %>" name="date" />
